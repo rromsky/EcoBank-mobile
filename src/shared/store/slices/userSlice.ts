@@ -1,9 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
-import { loadUser, firebaseResponseType, userType } from 'shared'
 
 export interface UserSliceState {
-  user: userType | firebaseResponseType
+  user: any
 }
 
 const initialState: UserSliceState = {
@@ -14,13 +13,8 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    userSet: (state, action: PayloadAction<userType | firebaseResponseType>) => {
+    userSet: (state, action: PayloadAction<any>) => {
       state.user = action.payload
-    },
-    userUpdate: (state) => {
-      loadUser({}).then((user) => {
-        state.user = user[0]
-      })
     },
     userUpdatePhoto: (state, action) => {
       state.user.photoURL = action.payload
@@ -48,7 +42,6 @@ export const {
   userSet,
   userUpdateField,
   userUpdateName,
-  userUpdate,
   userUpdateFavoriteList,
   userUpdatePhoto,
   userUpdateOnboarding,

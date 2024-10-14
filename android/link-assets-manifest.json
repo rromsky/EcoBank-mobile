@@ -1,0 +1,37 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/CeraPro-Black.ttf",
+      "sha1": "e75aab4f12fdd56078b419d909df6661eed93346"
+    },
+    {
+      "path": "assets/fonts/CeraPro-Bold.ttf",
+      "sha1": "31e65248f354106fda170b71be39e21edf303c9e"
+    },
+    {
+      "path": "assets/fonts/CeraPro-Regular.ttf",
+      "sha1": "dde47f28e602f3aa1488ec6a2126ab75c26e2ac4"
+    },
+    {
+      "path": "assets/fonts/Manrope-Bold.ttf",
+      "sha1": "a6b63c832d12337efb3123f47863f54472c81bf5"
+    },
+    {
+      "path": "assets/fonts/Manrope-Regular.ttf",
+      "sha1": "036b14064c7b90b4b200f2730981effea5e58b15"
+    },
+    {
+      "path": "assets/fonts/Manrope-SemiBold.ttf",
+      "sha1": "e423e112f4832916b05308934c10aa84fd14c607"
+    },
+    {
+      "path": "assets/fonts/ShantellSans-ExtraBold.ttf",
+      "sha1": "fb4b5a42938de99f8779c6648a6d26a77d57d5f5"
+    },
+    {
+      "path": "assets/fonts/shantel-sans.ttf",
+      "sha1": "fb4b5a42938de99f8779c6648a6d26a77d57d5f5"
+    }
+  ]
+}

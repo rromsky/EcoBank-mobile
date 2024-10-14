@@ -2,11 +2,11 @@
   "compilerOptions": {
     "baseUrl": "./",
     "paths": {
-      "shared": ["./src/shared"],
+      "shared": ["./src/shared/index.tsx"],
       "shared/*": ["./src/shared/*"],
       "store": ["./src/shared/store.index.tsx"],
       "src/*": ["./src/*"],
-      "src": ["./src"]
+      "assets/*": ["./assets/*"],
     }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"

@@ -9,10 +9,9 @@ module.exports = {
         root: ['.'],
         alias: {
           shared: './src/shared',
-          'shared/*': './src/shared/*',
           src: './src',
-          'src/*': './src/*',
           store: './src/shared/store/index.tsx',
+          assets: './assets',
         },
       },
     ],

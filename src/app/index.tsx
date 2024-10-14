@@ -1,7 +1,6 @@
-import { useRef, useState } from 'react'
 import { KeyboardAvoidingView, View } from 'react-native'
 
-const RegisterScreen = () => {
+export default function RegisterScreen() {
   return (
     <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'red', paddingHorizontal: 24 }}>
       <KeyboardAvoidingView
@@ -21,5 +20,3 @@ const RegisterScreen = () => {
     </View>
   )
 }
-
-export default RegisterScreen
