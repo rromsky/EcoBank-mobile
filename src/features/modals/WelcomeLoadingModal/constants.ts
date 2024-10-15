@@ -1,4 +1,4 @@
-import { windowHeight, windowWidth } from 'shared/types'
+import styles from 'src/features/modals/WelcomeLoadingModal/styles.ts'
 
 export const MotiRootWrapperParams = {
   from: {
@@ -14,15 +14,9 @@ export const MotiRootWrapperParams = {
   },
   exitTransition: {
     type: 'timing',
-    duration: 1000,
+    duration: 1100,
   },
-  style: {
-    width: windowWidth,
-    height: windowHeight,
-    position: 'absolute',
-    zIndex: 999,
-    flex: 1,
-  },
+  style: styles.root,
 }
 
 export const MotiContentWrapperParams = {
@@ -36,12 +30,7 @@ export const MotiContentWrapperParams = {
   },
   transition: {
     type: 'timing',
-    duration: 1000,
+    duration: 1100,
   },
-  style: {
-    zIndex: 2,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  style: styles.contentWrapper,
 }

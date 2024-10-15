@@ -1,11 +1,14 @@
-import { AnimatePresence, MotiView } from 'moti'
 import React, { useCallback, useEffect, useState } from 'react'
+
+import { AnimatePresence, MotiView } from 'moti'
 import { Image, Text } from 'react-native'
 import { wait } from 'shared/types'
 import { MotiContentWrapperParams, MotiRootWrapperParams } from 'src/features/modals/WelcomeLoadingModal/constants.ts'
 
 import Logo from 'assets/logo.png'
 import ClearSplash from 'assets/splash-clear.png'
+
+import styles from './styles'
 
 export default function WelcomeLoadingComponent() {
   const [isWelcomeShow, setWelcomeShow] = useState(true)
@@ -23,34 +26,13 @@ export default function WelcomeLoadingComponent() {
       {isWelcomeShow && (
         <MotiView {...(MotiRootWrapperParams as any)}>
           <MotiView {...(MotiContentWrapperParams as any)}>
-            <Image
-              source={Logo}
-              style={{
-                width: 104,
-                alignSelf: 'center',
-                height: 104,
-              }}
-            />
-            <Text
-              style={{
-                zIndex: 99,
-                color: '#2056A4',
-                fontFamily: 'Cera-Pro',
-                fontSize: 48,
-              }}
-            >
+            <Image source={Logo} style={styles.logo} />
+            <Text style={styles.title}>
               EcoBank {'\n'}
-              <Text style={{ fontSize: 32 }}>Investment</Text>
+              <Text style={styles.subTitle}>Investment</Text>
             </Text>
           </MotiView>
-          <Image
-            source={ClearSplash}
-            style={{
-              position: 'absolute',
-              width: '100%',
-              height: '100%',
-            }}
-          />
+          <Image source={ClearSplash} style={styles.background} />
         </MotiView>
       )}
     </AnimatePresence>

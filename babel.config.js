@@ -12,6 +12,7 @@ module.exports = {
           src: './src',
           store: './src/shared/store/index.tsx',
           assets: './assets',
+          theme: './src/shared/ui/theme.ts',
         },
       },
     ],
