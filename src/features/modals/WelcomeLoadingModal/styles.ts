@@ -12,10 +12,12 @@ export default StyleSheet.create({
     zIndex: 4,
     color: theme.white,
     fontFamily: 'Cera-Pro',
+    fontWeight: '600',
     fontSize: 48,
   },
   subTitle: {
     fontSize: 32,
+    fontWeight: '500',
   },
   background: {
     position: 'absolute',

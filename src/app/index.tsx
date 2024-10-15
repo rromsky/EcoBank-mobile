@@ -1,22 +1,17 @@
-import { KeyboardAvoidingView, View } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { RootStackParamList } from 'src/app/types.ts'
+import { NavigationRef } from 'shared/navigation'
 
-export default function RegisterScreen() {
+const Stack = 0
+
+export default function AppRoot() {
   return (
-    <View style={{ flex: 1, justifyContent: 'center', backgroundColor: 'red', paddingHorizontal: 24 }}>
-      <KeyboardAvoidingView
-        keyboardVerticalOffset={1}
-        behavior='padding'
-        style={{
-          padding: 6,
-          flexGrow: 1,
-          flexShrink: 1,
-          justifyContent: 'center',
-        }}
-      >
-        <View style={{ gap: 40 }}>
-          <View style={{ alignSelf: 'center' }}></View>
-        </View>
-      </KeyboardAvoidingView>
-    </View>
+    <NavigationContainer<RootStackParamList>
+      ref={(ref) => {
+        NavigationRef.setRef(ref)
+      }}
+    >
+      <></>
+    </NavigationContainer>
   )
 }
