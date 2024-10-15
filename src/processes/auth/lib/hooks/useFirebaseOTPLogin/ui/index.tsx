@@ -11,7 +11,7 @@ export default function FirebaseRecaptchaBanner(props: Props) {
   return (
     <View {...otherProps}>
       <Text style={[styles.text, textStyle]}>
-        This app is protected by reCAPTCHA and the Google ()
+        This app is protected by reCAPTCHA and the Google
         <Text style={[styles.link, linkStyle]} onPress={() => Linking.openURL('https://policies.google.com/privacy')}>
           &nbsp;Privacy Policy&nbsp;
         </Text>
