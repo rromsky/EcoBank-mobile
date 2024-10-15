@@ -51,6 +51,4 @@ export type RootStackParamList = {
   [Route.AuthStack]: NavigatorScreenParams<AuthStackParamList>
   [Route.MarketStack]: NavigatorScreenParams<MarketStackParamList>
   [Route.StockMarketStack]: NavigatorScreenParams<StockMarketStackParamList>
-} & AuthStackParamList &
-  MarketStackParamList &
-  StockMarketStackParamList
+}

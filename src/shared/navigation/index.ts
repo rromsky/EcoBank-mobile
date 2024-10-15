@@ -1,5 +1,11 @@
-import { createNavigationContainerRef, NavigationContainerRef, StackActions } from '@react-navigation/native'
-import { RootStackParamList } from 'src/app/types.ts'
+import {
+  createNavigationContainerRef,
+  NavigationContainerRef,
+  StackActions,
+  useNavigation,
+} from '@react-navigation/native'
+import { AuthStackParamList, RootStackParamList, Route } from 'src/app/types.ts'
+import { StackNavigationProp } from '@react-navigation/stack'
 
 type NavigationProps<T extends keyof RootStackParamList> = T extends unknown
   ? undefined extends RootStackParamList[T]
@@ -80,3 +86,22 @@ class NavigationReferenceService {
 }
 
 export const NavigationRef = new NavigationReferenceService()
+
+export enum NavigatorTypes {
+  AuthStack = 'AuthStack',
+  RootStack = 'RootStack',
+  MarketStack = 'MarketStack',
+  StockMarketStack = 'StockMarketStack',
+  Drawer = 'Drawer',
+  BottomTabs = 'BottomTabs',
+}
+
+export type AuthStackNavigatorProps = StackNavigationProp<AuthStackParamList, keyof AuthStackParamList>
+
+export type HomeRootStackNavigationProps = StackNavigationProp<RootStackParamList, keyof RootStackParamList>
+
+export type NavigationType = AuthStackNavigatorProps & HomeRootStackNavigationProps
+
+export const useNavigationTyped = () => useNavigation<NavigationType>()
+
+export type NavigationMethod = 'navigate' | 'push' | 'replace'
