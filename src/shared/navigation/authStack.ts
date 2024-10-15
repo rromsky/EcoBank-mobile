@@ -34,6 +34,14 @@ export const goToAuthRegisterScreen = (
   goToAuthStack(navigation, { screen: Route.RegisterScreen, params }, navigationMethod)
 }
 
+export const goToAuthOTPVerificationScreen = (
+  navigation: NavigationType,
+  params: AuthStackParamList[Route.OTPVerificationScreen],
+  navigationMethod?: NavigationMethod
+) => {
+  goToAuthStack(navigation, { screen: Route.OTPVerificationScreen, params }, navigationMethod)
+}
+
 export const goToAuthResetPasswordScreen = (
   navigation: NavigationType,
   params: AuthStackParamList[Route.ResetPasswordScreen],

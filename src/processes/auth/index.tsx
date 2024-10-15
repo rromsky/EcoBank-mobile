@@ -2,6 +2,7 @@ import { AuthStackParamList, Route } from 'src/app/types.ts'
 import { createStackNavigator } from '@react-navigation/stack'
 import Header from './components/Header'
 import WelcomeScreen from 'src/processes/auth/screens/WelcomeScreen'
+import RegisterScreen from 'src/processes/auth/screens/RegisterScreen'
 
 const AuthStack = createStackNavigator<AuthStackParamList>()
 
@@ -16,7 +17,8 @@ export default function AuthorizationFlow() {
       initialRouteName={Route.WelcomeScreen}
     >
       <AuthStack.Screen name={Route.WelcomeScreen} component={WelcomeScreen} options={noHeader} />
-      <AuthStack.Screen name={Route.RegisterScreen} component={WelcomeScreen} />
+      <AuthStack.Screen name={Route.RegisterScreen} component={RegisterScreen} />
+      <AuthStack.Screen name={Route.OTPVerificationScreen} component={RegisterScreen} />
       <AuthStack.Screen name={Route.LoginScreen} component={WelcomeScreen} />
       <AuthStack.Screen name={Route.ResetPasswordScreen} component={WelcomeScreen} />
       <AuthStack.Screen name={Route.OnboardingScreen} component={WelcomeScreen} options={noHeader} />

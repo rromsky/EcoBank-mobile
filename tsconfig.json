@@ -8,6 +8,8 @@
       "src/*": ["./src/*"],
       "assets/*": ["./assets/*"],
       "theme": ["./src/shared/ui/theme.ts"],
+
+      "@firebase/auth": ["./node_modules/@firebase/auth/dist/index.rn.d.ts"]
     }
   },
   "extends": "@react-native/typescript-config/tsconfig.json"

@@ -1,8 +1,22 @@
 export const theme = {
+  base0: '#ffffff',
+  base10: '#e1e1e1',
+  base20: '#d1d1d1',
+  base30: '#a1a1a1',
+  base40: '#919191',
+  base50: '#818181',
+  base60: '#717171',
+  base70: '#616161',
+  base80: '#515151',
+  base90: '#414141',
+  base95: '#313131',
+  base100: '#212121',
+
   black: '#000000',
   white: '#ffffff',
   blue: '#007bff',
   green: '#28a745',
+  darkGreen: '#19732d',
   red: '#dc3545',
   gray: '#6c757d',
 }

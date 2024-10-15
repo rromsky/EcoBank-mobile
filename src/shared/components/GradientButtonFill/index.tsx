@@ -19,11 +19,11 @@ export default function GradientButtonFill({
   pv = 21,
   mv = 0,
   disabled = false,
-  colors = ['#72E893', '#34C95D'],
+  colors = ['#42d16a', '#19b845'],
   disabledColors = ['#A0FFBA', '#72E893'],
 }: GradientButtonProps) {
   return (
-    <LinearGradient colors={disabled ? disabledColors : colors}>
+    <LinearGradient style={styles.button} colors={disabled ? disabledColors : colors}>
       <TouchableOpacity
         style={[styles.button, { paddingVertical: pv, marginVertical: mv }]}
         disabled={disabled}

@@ -1,9 +1,11 @@
 import { StyleSheet } from 'react-native'
+import { theme } from 'theme'
 
 export default StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
+    borderRadius: 5,
   },
   label: {
     alignItems: 'center',
@@ -13,6 +15,6 @@ export default StyleSheet.create({
     fontFamily: 'CeraPro-Black',
     letterSpacing: 0.3,
     fontSize: 14,
-    color: '#3e593a',
+    color: theme.white,
   },
 })
