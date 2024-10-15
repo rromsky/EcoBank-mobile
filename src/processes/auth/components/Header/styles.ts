@@ -8,4 +8,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     padding: 12,
   },
+  button: {
+    padding: 12,
+  },
 })
