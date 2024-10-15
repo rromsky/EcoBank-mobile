@@ -10,7 +10,7 @@ export default StyleSheet.create({
   },
   title: {
     zIndex: 4,
-    color: theme.black,
+    color: theme.white,
     fontFamily: 'Cera-Pro',
     fontSize: 48,
   },
