@@ -12,6 +12,7 @@ export enum Route {
   OTPVerificationScreen = 'OTPVerificationScreen',
   WelcomeScreen = 'WelcomeScreen',
   ResetPasswordScreen = 'ResetPasswordScreen',
+  SetupDetailsScreen = 'SetupDetailsScreen',
 
   HomeScreen = 'HomeScreen',
   CartScreen = 'CartScreen',
@@ -27,9 +28,8 @@ export type AuthStackParamList = {
   [Route.LoginScreen]: undefined
   [Route.OnboardingScreen]: undefined
   [Route.WelcomeScreen]: undefined
-  [Route.ResetPasswordScreen]: {
-    phoneNumber?: string
-  }
+  [Route.ResetPasswordScreen]: undefined
+  [Route.SetupDetailsScreen]: undefined
   [Route.OTPVerificationScreen]: {
     otpCode: string
   }

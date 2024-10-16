@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import useTimer from 'shared/lib/hooks/useTimer'
 import { KeyboardAvoidingView, Text, View } from 'react-native'
 import { OtpInput } from 'react-native-otp-entry'
@@ -7,26 +7,42 @@ import { useFirebaseLogin } from 'src/processes/auth/lib/hooks/useFirebaseOTPLog
 import GradientButtonFill from 'shared/components/GradientButtonFill'
 
 import styles from './styles'
+import LoadingFullScreen from 'shared/components/LoadingFullScreen'
+import { useRoute } from '@react-navigation/native'
+import { AuthStackParamList, Route } from 'src/app/types.ts'
+import { goToAuthOnboardingScreen } from 'shared/navigation/authStack.ts'
+import { useNavigationTyped } from 'shared/navigation'
 
-const OTPVerificationScreen = ({ otpCode }: { otpCode: string }) => {
+const OTPVerificationScreen = () => {
   const { verifyOtp } = useFirebaseLogin({ auth: auth, firebaseConfig: firebaseConfig })
+
+  const otpCodeId = useRoute<AuthStackParamList[Route.OTPVerificationScreen]>().params.otpCode
+
+  const navigation = useNavigationTyped()
   const [isWrongCode, setWrongCode] = useState(false)
   const [userOtpCode, setOtpCode] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
-  const { time } = useTimer({ minutes: 3 })
+  const { time, stopped } = useTimer({ minutes: 3, autoRefresh: true, stoppedText: 'Час вичерпано.' })
 
-  const onClickContinue = async () => {
-    try {
-      const res = await verifyOtp(userOtpCode, otpCode)
-      // TODO: Provide authorization token to Firebase Auth
-    } catch (e) {
-      console.log(e, 'ERROR_WHILE_VERIFY_OTP')
-      setWrongCode(true)
-    }
+  const onClickContinue = () => {
+    setIsLoading(() => true)
+    ;(async () => {
+      try {
+        await verifyOtp(userOtpCode, otpCodeId)
+        goToAuthOnboardingScreen(navigation)
+      } catch (e) {
+        console.log(e, 'ERROR_WHILE_VERIFY_OTP')
+        setWrongCode(true)
+      } finally {
+        setIsLoading(false)
+      }
+    })()
   }
 
   return (
     <View style={styles.root}>
+      {isLoading && <LoadingFullScreen />}
       <KeyboardAvoidingView keyboardVerticalOffset={1} behavior='padding' style={styles.container}>
         <View style={styles.gap}>
           <Text style={styles.title}>Верифікація</Text>
@@ -47,8 +63,12 @@ const OTPVerificationScreen = ({ otpCode }: { otpCode: string }) => {
             numberOfDigits={6}
             onTextChange={(text) => setOtpCode(text)}
           />
-          <GradientButtonFill onPress={onClickContinue}>Перевірити</GradientButtonFill>
-          <Text style={styles.footerText}>Термін коду закінчиться через {time}</Text>
+          <GradientButtonFill disabled={stopped} onPress={onClickContinue}>
+            Перевірити
+          </GradientButtonFill>
+          <Text style={styles.footerText}>
+            {!stopped && 'Термін коду закінчиться через'} {time}
+          </Text>
         </View>
       </KeyboardAvoidingView>
     </View>

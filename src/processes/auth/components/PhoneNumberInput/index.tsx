@@ -9,16 +9,14 @@ type Props = {
 
 const PhoneNumberInput = ({ setFormattedValue, setValue, value }: Props) => {
   return (
-    <View style={{ width: 330, alignItems: 'center', justifyContent: 'center' }}>
-      <PhoneInput
-        defaultValue={value}
-        defaultCode='UA'
-        layout='second'
-        onChangeText={setValue}
-        onChangeFormattedText={setFormattedValue}
-        textInputProps={{ placeholderTextColor: '#999' }}
-      />
-    </View>
+    <PhoneInput
+      defaultValue={value}
+      defaultCode='UA'
+      layout='second'
+      onChangeText={setValue}
+      onChangeFormattedText={setFormattedValue}
+      textInputProps={{ placeholderTextColor: '#999' }}
+    />
   )
 }
 

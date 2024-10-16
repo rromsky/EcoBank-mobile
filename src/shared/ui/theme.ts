@@ -19,4 +19,5 @@ export const theme = {
   darkGreen: '#19732d',
   red: '#dc3545',
   gray: '#6c757d',
+  warning: '#bf760a',
 }

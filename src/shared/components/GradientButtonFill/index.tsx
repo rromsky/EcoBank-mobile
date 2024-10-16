@@ -1,5 +1,5 @@
 import { LinearGradient } from 'react-native-linear-gradient'
-import { Text, TouchableOpacity } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import styles from './styles'
 
 export type GradientButtonProps = {
@@ -23,15 +23,12 @@ export default function GradientButtonFill({
   disabledColors = ['#A0FFBA', '#72E893'],
 }: GradientButtonProps) {
   return (
-    <LinearGradient style={styles.button} colors={disabled ? disabledColors : colors}>
-      <TouchableOpacity
-        style={[styles.button, { paddingVertical: pv, marginVertical: mv }]}
-        disabled={disabled}
-        activeOpacity={0.6}
-        onPress={onPress}
-      >
-        <Text style={styles.label}>{children}</Text>
-      </TouchableOpacity>
-    </LinearGradient>
+    <TouchableOpacity disabled={disabled} activeOpacity={0.6} onPress={onPress}>
+      <LinearGradient style={styles.button} colors={disabled ? disabledColors : colors}>
+        <View style={[styles.button, { paddingVertical: pv, marginVertical: mv }]}>
+          <Text style={styles.label}>{children}</Text>
+        </View>
+      </LinearGradient>
+    </TouchableOpacity>
   )
 }

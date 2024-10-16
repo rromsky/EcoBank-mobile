@@ -3,10 +3,12 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 export interface UserSliceState {
   user: any
+  isOnboarded?: boolean
 }
 
 const initialState: UserSliceState = {
   user: null,
+  isOnboarded: false,
 }
 
 export const userSlice = createSlice({
@@ -16,20 +18,8 @@ export const userSlice = createSlice({
     userSet: (state, action: PayloadAction<any>) => {
       state.user = action.payload
     },
-    userUpdatePhoto: (state, action) => {
-      state.user.photoURL = action.payload
-    },
-    userUpdateName: (state, action) => {
-      state.user.displayName = action.payload
-    },
-    userUpdateFavoriteList: (state, action) => {
-      state.user.favoriteList = action.payload
-    },
     userUpdateOnboarding: (state) => {
-      state.user.isOnboarded = true
-    },
-    userUpdateField: (state, action) => {
-      state.user[action.payload.field] = action.payload.value
+      state.isOnboarded = true
     },
     userLogout: (state) => {
       state.user = null
@@ -37,14 +27,6 @@ export const userSlice = createSlice({
   },
 })
 
-export const {
-  userLogout,
-  userSet,
-  userUpdateField,
-  userUpdateName,
-  userUpdateFavoriteList,
-  userUpdatePhoto,
-  userUpdateOnboarding,
-} = userSlice.actions
+export const { userLogout, userSet, userUpdateOnboarding } = userSlice.actions
 
 export default userSlice.reducer

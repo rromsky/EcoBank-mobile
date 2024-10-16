@@ -1,12 +1,14 @@
 import { AuthStackParamList, RootStackParamList, Route } from 'src/app/types.ts'
 import { NavigationType } from 'shared/navigation/index.ts'
 import { NavigationMethod } from './index.ts'
+import { trackScreenChange } from 'shared/lib/services/tracking'
 
 export const goToAuthStack = (
   navigation: NavigationType,
   params?: RootStackParamList[Route.AuthStack],
   navigationMethod: NavigationMethod = 'navigate'
 ) => {
+  trackScreenChange(params?.screen || Route.AuthStack)
   ;(navigation[navigationMethod] as any)(Route.AuthStack, params)
 }
 
@@ -44,8 +46,16 @@ export const goToAuthOTPVerificationScreen = (
 
 export const goToAuthResetPasswordScreen = (
   navigation: NavigationType,
-  params: AuthStackParamList[Route.ResetPasswordScreen],
+  params?: AuthStackParamList[Route.ResetPasswordScreen],
   navigationMethod?: NavigationMethod
 ) => {
   goToAuthStack(navigation, { screen: Route.ResetPasswordScreen, params }, navigationMethod)
+}
+
+export const goToAuthOnboardingScreen = (
+  navigation: NavigationType,
+  params?: AuthStackParamList[Route.OnboardingScreen],
+  navigationMethod?: NavigationMethod
+) => {
+  goToAuthStack(navigation, { screen: Route.OnboardingScreen, params }, navigationMethod)
 }
