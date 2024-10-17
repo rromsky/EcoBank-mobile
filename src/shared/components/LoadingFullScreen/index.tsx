@@ -10,13 +10,23 @@ export default function LoadingFullScreen() {
         width: windowWidth,
         height: windowHeight,
         zIndex: 2,
-        backgroundColor: theme.gray,
-        opacity: 0.2,
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <ActivityIndicator size={'large'} color={theme.green} />
+      <View
+        style={{
+          position: 'absolute',
+          width: windowWidth,
+          height: windowHeight,
+          zIndex: 2,
+          backgroundColor: theme.gray,
+          opacity: 0.25,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      />
+      <ActivityIndicator style={{ zIndex: 2 }} size={'large'} color={theme.green} />
     </View>
   )
 }
