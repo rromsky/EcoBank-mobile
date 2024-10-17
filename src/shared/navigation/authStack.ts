@@ -59,3 +59,11 @@ export const goToAuthOnboardingScreen = (
 ) => {
   goToAuthStack(navigation, { screen: Route.OnboardingScreen, params }, navigationMethod)
 }
+
+export const goToAuthSetupDetailsScreen = (
+  navigation: NavigationType,
+  params?: AuthStackParamList[Route.SetupDetailsScreen],
+  navigationMethod?: NavigationMethod
+) => {
+  goToAuthStack(navigation, { screen: Route.SetupDetailsScreen, params }, navigationMethod)
+}

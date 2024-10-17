@@ -5,45 +5,21 @@ import WelcomeScreen from './screens/WelcomeScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import OTPVerificationScreen from './screens/OTPScreen'
 import LoginScreen from './screens/LoginScreen'
-import { useAppDispatch, userSet } from 'shared/store'
-import { useEffect } from 'react'
-import { onAuthStateChanged } from 'firebase/auth'
-import { auth } from 'shared/lib/api'
 import SetupDetailsScreen from './screens/SetupDetailsScreen'
+import { useAppSelector } from 'shared/store'
 
 const AuthStack = createStackNavigator<AuthStackParamList>()
 
 const noHeader = { headerShown: false }
 
 export default function AuthorizationFlow() {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    const unsubscribeAuthHandler = onAuthStateChanged(auth, (userInstance) => {
-      if (!userInstance) return
-      const { displayName, uid, phoneNumber, email, photoURL, emailVerified } = userInstance
-      dispatch(
-        userSet({
-          displayName,
-          uid,
-          phoneNumber,
-          email,
-          photoURL,
-          emailVerified,
-        })
-      )
-      return () => {
-        unsubscribeAuthHandler()
-      }
-    })
-  }, [])
-  // @ts-ignore
+  const isLoggedIn = useAppSelector((state) => !!state.user.user)
   return (
     <AuthStack.Navigator
       screenOptions={{
         header: () => <Header />,
       }}
-      initialRouteName={Route.SetupDetailsScreen}
+      initialRouteName={isLoggedIn ? Route.WelcomeScreen : Route.SetupDetailsScreen}
     >
       <AuthStack.Screen name={Route.WelcomeScreen} component={WelcomeScreen} options={noHeader} />
       <AuthStack.Screen name={Route.RegisterScreen} component={RegisterScreen} />

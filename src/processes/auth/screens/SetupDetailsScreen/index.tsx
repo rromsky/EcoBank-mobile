@@ -2,15 +2,18 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState } from 'react'
 import { EmailAuthProvider, linkWithCredential } from 'firebase/auth'
-import { useAppDispatch, userSet } from 'shared/store'
+import { updateUserPersonalData, useAppDispatch, useAppSelector, userLogout } from 'shared/store'
 import { emailValidator, passwordValidator } from 'src/processes/auth/screens/LoginScreen'
-import { auth } from 'shared/lib/api'
+import { auth, gatewaySetUser } from 'shared/lib/api'
 import GradientButtonFill from 'shared/components/GradientButtonFill'
 import DetailInput from 'shared/components/DetailInput'
 import styles from './styles'
+import { goToAuthOnboardingScreen, goToAuthWelcomeScreen } from 'shared/navigation/authStack.ts'
+import { useNavigationTyped } from 'shared/navigation'
 
 const SetupDetails = () => {
   const dispatch = useAppDispatch()
+  const navigation = useNavigationTyped()
 
   const [surname, setSurname] = useState('')
   const [name, setName] = useState('')
@@ -36,7 +39,29 @@ const SetupDetails = () => {
 
     if (emailValid && passwordValid && name.length && surname.length && address.length && auth.currentUser) {
       const cred = EmailAuthProvider.credential(email, password)
-      linkWithCredential(auth.currentUser, cred)
+      const personalData = {
+        name,
+        surname,
+        address,
+        email,
+      }
+      const { uid, emailVerified, phoneNumber, photoURL, displayName } = auth.currentUser || {}
+
+      const user = {
+        personalData: personalData,
+        uid,
+        email,
+        emailVerified,
+        phoneNumber,
+        photoURL,
+        displayName,
+      }
+      linkWithCredential(auth.currentUser, cred).then(() => {
+        dispatch(updateUserPersonalData(personalData))
+
+        gatewaySetUser({ user } as any)
+        goToAuthOnboardingScreen(navigation)
+      })
     }
   }
 
@@ -47,7 +72,8 @@ const SetupDetails = () => {
           style={{}}
           onPress={() => {
             auth.signOut()
-            dispatch(userSet(null))
+            dispatch(userLogout)
+            goToAuthWelcomeScreen(navigation)
           }}
         >
           <Icon name={'chevron-left'} size={32} />

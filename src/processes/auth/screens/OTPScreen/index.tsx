@@ -10,11 +10,11 @@ import styles from './styles'
 import LoadingFullScreen from 'shared/components/LoadingFullScreen'
 import { useRoute } from '@react-navigation/native'
 import { AuthStackParamList, Route } from 'src/app/types.ts'
-import { goToAuthOnboardingScreen } from 'shared/navigation/authStack.ts'
+import { goToAuthSetupDetailsScreen } from 'shared/navigation/authStack.ts'
 import { useNavigationTyped } from 'shared/navigation'
 
 const OTPVerificationScreen = () => {
-  const { verifyOtp } = useFirebaseLogin({ auth: auth, firebaseConfig: firebaseConfig })
+  const { verifyOtp } = useFirebaseLogin({ auth, firebaseConfig })
 
   const otpCodeId = useRoute<AuthStackParamList[Route.OTPVerificationScreen]>().params.otpCode
 
@@ -30,9 +30,8 @@ const OTPVerificationScreen = () => {
     ;(async () => {
       try {
         await verifyOtp(userOtpCode, otpCodeId)
-        goToAuthOnboardingScreen(navigation)
+        goToAuthSetupDetailsScreen(navigation)
       } catch (e) {
-        console.log(e, 'ERROR_WHILE_VERIFY_OTP')
         setWrongCode(true)
       } finally {
         setIsLoading(false)
