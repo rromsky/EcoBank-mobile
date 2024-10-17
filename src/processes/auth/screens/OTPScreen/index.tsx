@@ -41,7 +41,7 @@ const OTPVerificationScreen = () => {
 
   return (
     <View style={styles.root}>
-      {!isLoading && <LoadingFullScreen />}
+      {isLoading && <LoadingFullScreen />}
       <KeyboardAvoidingView keyboardVerticalOffset={1} behavior='padding' style={styles.container}>
         <View style={styles.gap}>
           <Text style={styles.title}>Верифікація</Text>
