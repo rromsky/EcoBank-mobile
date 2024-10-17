@@ -19,9 +19,9 @@ export default function App() {
       <SafeAreaProvider>
         <StatusBar />
         <AppRoot />
-        <WelcomeLoadingComponent />
         <Toast />
       </SafeAreaProvider>
+      <WelcomeLoadingComponent />
     </Provider>
   )
 }

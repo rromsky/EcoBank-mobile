@@ -14,6 +14,7 @@ export type User = {
   email: string | null
   photoURL: string | null
   emailVerified?: boolean
+  isOnboarded?: boolean
 }
 
 export interface UserSliceState {

@@ -1,12 +1,13 @@
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import GradientButtonFill from 'shared/components/GradientButtonFill'
-import IoIcon from 'react-native-vector-icons/Ionicons'
 import styles from './styles.ts'
 import { goToAuthRegisterScreen, goToAuthResetPasswordScreen } from 'shared/navigation/authStack.ts'
 import { useNavigationTyped } from 'shared/navigation'
 import LoadingFullScreen from 'shared/components/LoadingFullScreen'
 import DetailInput from 'shared/components/DetailInput'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { auth } from 'shared/lib/api'
 
 export const emailValidator =
   /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+))/
@@ -15,7 +16,7 @@ export const passwordValidator = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,16}$/
 export default function LoginScreen() {
   const navigation = useNavigationTyped()
 
-  const [emailOrPhoneNumber, setEmailOrPhone] = useState('')
+  const [email, setEmailOrPhone] = useState('')
   const [password, setPassword] = useState('')
   const [isEmailValid, setIsMailValid] = useState(true)
   const [isPasswordValid, setIsPasswordValid] = useState(true)
@@ -23,7 +24,7 @@ export default function LoginScreen() {
 
   const onClickContinue = () => {
     let invalidData = false
-    if (!emailValidator.test(emailOrPhoneNumber)) {
+    if (!emailValidator.test(email)) {
       setIsMailValid(false)
       invalidData = true
     }
@@ -39,7 +40,9 @@ export default function LoginScreen() {
       return
     }
     setIsLoading(true)
-    //PROVIDE LOGIC TO LOG_IN
+    signInWithEmailAndPassword(auth, email, password).then(() => {
+      setIsLoading(false)
+    })
   }
 
   return (
@@ -56,7 +59,7 @@ export default function LoginScreen() {
           </View>
           <View style={{}}>
             <DetailInput
-              value={emailOrPhoneNumber}
+              value={email}
               isValid={isEmailValid}
               onChangeText={setEmailOrPhone}
               placeholder='email@gmail.com'
