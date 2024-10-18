@@ -15,6 +15,9 @@ export type User = {
   photoURL: string | null
   emailVerified?: boolean
   isOnboarded?: boolean
+  marketData: {
+    favouriteItems: string[]
+  }
 }
 
 export interface UserSliceState {
@@ -43,9 +46,13 @@ export const userSlice = createSlice({
     updateUserPersonalData: (state, action: PayloadAction<PersonalData>) => {
       if (state.user) state.user.personalData = action.payload
     },
+    userUpdateFavouriteList: (state, action: PayloadAction<string[]>) => {
+      if (state.user) state.user.marketData.favouriteItems = action.payload
+    },
   },
 })
 
-export const { userLogout, updateUserPersonalData, userSet, userUpdateOnboarding } = userSlice.actions
+export const { userLogout, userUpdateFavouriteList, updateUserPersonalData, userSet, userUpdateOnboarding } =
+  userSlice.actions
 
 export default userSlice.reducer

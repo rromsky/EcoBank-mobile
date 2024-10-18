@@ -7,11 +7,12 @@ import { useAppDispatch, useAppSelector, userSet } from 'shared/store'
 import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, gatewayLoadUser } from 'shared/lib/api'
+import MarketFlow from 'src/processes/market'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
 export default function AppRoot() {
-  const userOnboarded = useAppSelector((state) => state.user.isOnboarded)
+  const userOnboarded = useAppSelector((state) => state.user.isOnboarded || state.user.user?.isOnboarded)
   const isLoggedIn = useAppSelector((state) => !!state.user.user)
   const dispatch = useAppDispatch()
   const [initializing, setInitializing] = useState(true)
@@ -20,7 +21,6 @@ export default function AppRoot() {
   useEffect(() => {
     const authListener = onAuthStateChanged(auth, (result) => {
       const userID = result?.uid
-
       if (userID) {
         gatewayLoadUser({ userID }).then((user) => {
           dispatch(userSet(user))
@@ -51,7 +51,8 @@ export default function AppRoot() {
         }}
       >
         {(!userOnboarded || !isLoggedIn) && <Stack.Screen name={Route.AuthStack} component={AuthorizationFlow} />}
-        {/*<Stack.Screen name={Route.AuthStack} component={AuthorizationFlow} />*/}
+        {/*<Stack.Screen name={Route.StockMarketStack} component={AuthorizationFlow} />*/}
+        <Stack.Screen name={Route.MarketStack} component={MarketFlow} />
       </Stack.Navigator>
     </NavigationContainer>
   )

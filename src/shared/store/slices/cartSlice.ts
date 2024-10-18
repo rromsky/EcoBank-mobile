@@ -49,7 +49,11 @@ const cartSlice = createSlice({
       state.totalPrice = 0
       state.isButtonShown = false
     },
+    cartGlobalSetItems: (state: cartSliceType, action: PayloadAction<ItemType[]>) => {
+      state.items = action.payload
+      state.displayedItems = action.payload
+    },
   },
 })
-export const { cartClean, cartAddItem, cartRemoveItem } = cartSlice.actions
+export const { cartGlobalSetItems, cartClean, cartAddItem, cartRemoveItem } = cartSlice.actions
 export default cartSlice.reducer

@@ -26,8 +26,8 @@ export default function WelcomeLoadingComponent() {
   return (
     <AnimatePresence exitBeforeEnter>
       {isWelcomeShow && (
-        <MotiView {...(MotiRootWrapperParams as any)}>
-          <MotiView {...(MotiContentWrapperParams as any)}>
+        <MotiView key={'root-loading-wrapper'} {...(MotiRootWrapperParams as any)}>
+          <MotiView key={'content-loading-wrapper'} {...(MotiContentWrapperParams as any)}>
             <Image source={Logo} style={styles.logo} />
             <Text style={styles.title}>
               EcoBank {'\n'}

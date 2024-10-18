@@ -1,4 +1,5 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
+import { ItemType } from 'src/processes/market/screens/types.ts'
 
 export enum Route {
   AuthStack = 'AuthStack',
@@ -39,7 +40,7 @@ export type MarketStackParamList = {
   [Route.HomeScreen]: undefined
   [Route.CartScreen]: undefined
   [Route.ItemDetailsScreen]: {
-    item: any // TODO: define item type
+    item: ItemType // TODO: define item type
   }
   [Route.PaymentScreen]: undefined
 }
