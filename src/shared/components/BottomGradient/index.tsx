@@ -4,7 +4,7 @@ import { windowHeight, windowWidth } from 'shared/types'
 
 export const BottomGradient = ({
   height = windowHeight * 0.3,
-  colors = ['#FFFFFF1A', '#ffffff'],
+  colors = ['rgba(255,255,255,0)', '#ffffff'],
 }: {
   height?: number
   colors?: string[]

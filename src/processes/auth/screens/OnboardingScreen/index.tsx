@@ -51,14 +51,14 @@ export default function OnboardingScreen() {
       index: currentPage - 1,
     })
   }
-  const onSwipe = ({ viewableItems }) => {
+  const onSwipe = ({ viewableItems }: any) => {
     if (!viewableItems[0]) return
     setCurrentPage((prevState) => {
       if (prevState !== viewableItems[0]) return viewableItems[0].index
     })
   }
 
-  const renderItem = useCallback(({ item }) => {
+  const renderItem = useCallback(({ item }: { item: any }) => {
     return (
       <View style={{ flex: 1, width: windowWidth, justifyContent: 'space-around' }}>
         <View style={{ alignSelf: 'center', alignItems: 'center', gap: 12 }}>
@@ -90,6 +90,7 @@ export default function OnboardingScreen() {
         <Pagination
           leftButtonText={currentPage ? 'Назад' : 'Пропустити'}
           rightButtonText={'Далі'}
+          // @ts-ignore
           rightButtonIcon={currentPage === pages.length - 1 && 'check'}
           onLeftClick={!currentPage ? setOnboardedUser : onPreviousPage}
           onRightClick={currentPage === pages.length - 1 ? setOnboardedUser : onNextPage}

@@ -6,7 +6,7 @@ import { theme } from 'theme'
 
 export const itemFix = { itemVisiblePercentThreshold: 150 }
 
-export const Dot = ({ color, size }) => {
+export const Dot = ({ color, size }: { color?: string; size?: number }) => {
   return (
     <View
       style={{
@@ -19,7 +19,7 @@ export const Dot = ({ color, size }) => {
     />
   )
 }
-export const Dots = ({ pages, currentPage }) => {
+export const Dots = ({ pages, currentPage }: { pages: any[]; currentPage: number }) => {
   const dotList = Array(pages.length).fill({ size: 14, color: '#d5d5d5' })
   return (
     <FlatList

@@ -6,6 +6,8 @@ import { ItemType } from 'src/processes/market/screens/types.ts'
 import { gatewayUpdateUserFavourite } from 'shared/lib/api'
 import { windowWidth } from 'shared/types'
 import { LineDecorator } from 'shared/components'
+import { useNavigationTyped } from 'shared/navigation'
+import { Route } from 'src/app/types.ts'
 
 const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean }) => {
   const user: User = useAppSelector((state) => state.user.user)
@@ -13,6 +15,7 @@ const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean
   const isFavorite = favoriteList?.includes(item.code)
 
   const dispatch = useAppDispatch()
+  const navigation = useNavigationTyped()
 
   const handleFavoriteClick = () => {
     const newList = isFavorite
@@ -26,13 +29,14 @@ const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean
     <TouchableOpacity
       style={{ marginHorizontal: 8 }}
       onPress={() => {
+        navigation.navigate(Route.ItemDetailsScreen, { item })
         // Navigate to details
       }}
     >
       <View
         style={{
           borderRadius: 10,
-          backgroundColor: '#fff',
+          backgroundColor: '#fafafa',
           width: (windowWidth - 16 * 3) / 2,
           alignItems: 'center',
           padding: 4,

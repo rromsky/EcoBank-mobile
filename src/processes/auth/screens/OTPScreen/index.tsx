@@ -16,6 +16,7 @@ import { useNavigationTyped } from 'shared/navigation'
 const OTPVerificationScreen = () => {
   const { verifyOtp } = useFirebaseLogin({ auth, firebaseConfig })
 
+  // @ts-ignore
   const otpCodeId = useRoute<AuthStackParamList[Route.OTPVerificationScreen]>().params.otpCode
 
   const navigation = useNavigationTyped()

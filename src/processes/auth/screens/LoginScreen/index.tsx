@@ -48,7 +48,7 @@ export default function LoginScreen() {
   return (
     <View style={styles.root}>
       {isLoading && <LoadingFullScreen />}
-      <KeyboardAvoidingView keyboardVerticalOffset={1} behavior='padding' style={styles.container}>
+      <KeyboardAvoidingView keyboardVerticalOffset={1} aria-valuemax={150} behavior='padding' style={styles.container}>
         <View style={styles.gap}>
           <View>
             <Text style={styles.title}>Авторизація</Text>

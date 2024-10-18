@@ -1,25 +1,19 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ItemCategory, ItemType } from 'shared/types'
+import { ItemType } from 'src/processes/market/screens/types.ts'
 
 export interface cartSliceType {
   isButtonShown: boolean
   totalPrice: number
   items: ItemType[]
-  displayedItems: ItemType[]
-  searchedItems: ItemType[]
-  searchString: string
   isFiltered: boolean
   activeFilteredCategory: string[]
 }
 
 const initialState: cartSliceType = {
   activeFilteredCategory: [],
-  displayedItems: [],
+  items: [],
   isButtonShown: false,
   isFiltered: false,
-  items: [],
-  searchString: '',
-  searchedItems: [],
   totalPrice: 0,
 }
 
@@ -49,11 +43,7 @@ const cartSlice = createSlice({
       state.totalPrice = 0
       state.isButtonShown = false
     },
-    cartGlobalSetItems: (state: cartSliceType, action: PayloadAction<ItemType[]>) => {
-      state.items = action.payload
-      state.displayedItems = action.payload
-    },
   },
 })
-export const { cartGlobalSetItems, cartClean, cartAddItem, cartRemoveItem } = cartSlice.actions
+export const { cartClean, cartAddItem, cartRemoveItem } = cartSlice.actions
 export default cartSlice.reducer

@@ -1,5 +1,4 @@
-import { MarketStackParamList, Route } from 'src/app/types.ts'
-// import { createStackNavigator } from '@react-navigation/stack'
+import { ProductStackParamList, Route } from 'src/app/types.ts'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import HomeScreen from 'src/processes/market/screens/HomeScreen'
 import { theme } from 'theme'
@@ -11,7 +10,7 @@ import {
   ProfileIcon,
 } from 'src/processes/market/components/CustomTabBar'
 
-const MarketStack = createBottomTabNavigator<MarketStackParamList>()
+const MarketStack = createBottomTabNavigator<ProductStackParamList>()
 
 const noHeader = { headerShown: false }
 
@@ -57,12 +56,11 @@ export default function MarketFlow() {
       />
       <MarketStack.Screen
         options={{
-          headerShown: false,
           tabBarLabel: (props) => <CustomTabLabel name={'Профіль'} {...props} />,
           tabBarButton: CustomTabButton,
           tabBarIcon: (props) => <ProfileIcon isActive={props.focused} {...props} />,
         }}
-        name={Route.ItemDetailsScreen}
+        name={Route.SettingsScreen}
         component={HomeScreen}
       />
     </MarketStack.Navigator>

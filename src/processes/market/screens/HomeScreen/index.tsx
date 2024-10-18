@@ -16,7 +16,7 @@ const HomeScreen = () => {
 
   const { displayedItems, fetchNextPage, ListEndLoader } = useInfiniteScroll({
     items: filteredItems,
-    step: 4,
+    step: 6,
   })
 
   const renderItem = useCallback(

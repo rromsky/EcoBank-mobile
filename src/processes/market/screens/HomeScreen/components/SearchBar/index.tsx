@@ -4,63 +4,32 @@ import { windowWidth } from 'shared/types'
 import { LinearGradient } from 'react-native-linear-gradient'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+import styles from './styles'
+
+interface Props {
+  searchString: string
+  onChangeText: (t: string) => void
+  searchBarGradientColors?: string[]
+  borderColor?: string
+}
+
 export const SearchBar = ({
   searchString,
   onChangeText,
   searchBarGradientColors = ['#04b108', '#19b845'],
   borderColor = 'rgb(130,227,157)',
-}) => {
+}: Props) => {
   const { top } = useSafeAreaInsets()
 
   return (
-    <View
-      style={{
-        width: windowWidth + 6,
-        borderWidth: 3,
-        marginLeft: -3,
-        borderTopWidth: 0,
-        borderColor: borderColor,
-        borderBottomLeftRadius: 18,
-        borderBottomRightRadius: 18,
-        marginBottom: 24,
-      }}
-    >
-      <LinearGradient
-        colors={searchBarGradientColors}
-        style={{
-          width: windowWidth + 3,
-          marginLeft: -1.5,
-          borderBottomLeftRadius: 18,
-          borderBottomRightRadius: 18,
-          paddingTop: top + 32,
-          paddingBottom: 48,
-        }}
-      >
-        <View
-          style={{
-            flexDirection: 'row',
-            alignSelf: 'center',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: '#fff',
-            paddingHorizontal: 16,
-            gap: 14,
-            borderRadius: 30,
-          }}
-        >
+    <View style={[styles.root, { borderColor }]}>
+      <LinearGradient colors={searchBarGradientColors} style={[styles.gradientContainer, { paddingTop: top + 32 }]}>
+        <View style={styles.inputContainer}>
           <Icon name={'search'} size={28} color={'rgba(0,0,0,0.32)'} />
           <TextInput
             value={searchString}
             onChangeText={onChangeText}
-            style={{
-              width: windowWidth - 128,
-              maxWidth: 512,
-              borderRadius: 30,
-              paddingVertical: 18,
-              alignSelf: 'center',
-              backgroundColor: '#fff',
-              fontSize: 22,
-            }}
+            style={styles.textInput}
             placeholder='Пошук'
             placeholderTextColor={'#ADADAD'}
           />

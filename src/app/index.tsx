@@ -8,8 +8,12 @@ import { useEffect, useState } from 'react'
 import { onAuthStateChanged } from 'firebase/auth'
 import { auth, gatewayLoadUser } from 'shared/lib/api'
 import MarketFlow from 'src/processes/market'
+import ItemDetailsScreen from 'src/processes/market/screens/ItemDetailsScreen'
+import Header from 'src/processes/auth/components/Header'
 
 const Stack = createStackNavigator<RootStackParamList>()
+
+const showHeader = { headerShown: true }
 
 export default function AppRoot() {
   const userOnboarded = useAppSelector((state) => state.user.isOnboarded || state.user.user?.isOnboarded)
@@ -48,11 +52,13 @@ export default function AppRoot() {
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
+          header: () => <Header />,
         }}
       >
         {(!userOnboarded || !isLoggedIn) && <Stack.Screen name={Route.AuthStack} component={AuthorizationFlow} />}
         {/*<Stack.Screen name={Route.StockMarketStack} component={AuthorizationFlow} />*/}
         <Stack.Screen name={Route.MarketStack} component={MarketFlow} />
+        <Stack.Screen options={showHeader} name={Route.ItemDetailsScreen} component={ItemDetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

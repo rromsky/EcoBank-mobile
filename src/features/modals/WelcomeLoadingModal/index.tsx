@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-// import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen'
 
 import { AnimatePresence, MotiView } from 'moti'
 import { Image, Text } from 'react-native'
@@ -19,7 +19,7 @@ export default function WelcomeLoadingComponent() {
   }, [])
 
   useEffect(() => {
-    // wait(50).then(() => SplashScreen.hide())
+    wait(10).then(() => SplashScreen.hide())
     wait(1200).then(closeLoading)
   }, [])
 
