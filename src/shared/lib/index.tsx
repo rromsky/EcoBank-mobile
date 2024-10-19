@@ -103,7 +103,7 @@ export const initPlatformPayment = async ({
   items: ItemType[]
 }) => {
   const intent = await createPayment({ userID, ids, items, amount: totalPrice, createPaymentIntent })
-  return await confirmPlatformIntent({ intent, totalPrice, amount: totalPrice * 100, items })
+  return await confirmPlatformIntent({ intent, totalPrice, items })
 }
 export const confirmCardIntent = async ({ intent }: { intent: string }) => {
   const initResponse = await initPaymentSheet({
