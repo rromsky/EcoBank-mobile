@@ -54,10 +54,17 @@ const CartScreen = () => {
           items,
         })
     )
-      .then(() => {
+      .then((e) => {
+        if (e) {
+          if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
+          return
+        }
         Toast.show({ text1: 'Оплата успішна', type: 'success', position: 'bottom' })
         dispatch(cartClean)
         goToHome()
+      })
+      .catch((e: any) => {
+        if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
       })
       .finally(() => setIsLoading(false))
   }

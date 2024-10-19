@@ -43,23 +43,32 @@ export const confirmPlatformIntent = async ({
   intent,
   totalPrice,
   items,
-  amount,
 }: {
   intent: string
   items: ItemType[]
   totalPrice?: number
-  amount: number
 }) => {
   const { error } = await confirmPlatformPayPayment(intent, {
     applePay: {
-      cartItems: items.map((item) => {
-        return {
-          image: item.photoURL,
-          label: item.title,
+      cartItems: [
+        ...items.map((item) => {
+          return {
+            label: item.title,
+            amount: `${item.price} UAH`,
+            paymentType: PlatformPay.PaymentType.Immediate as any,
+          }
+        }),
+        {
+          label: 'Сервісний збір',
+          amount: '5 UAH',
+          paymentType: PlatformPay.PaymentType.Immediate,
+        },
+        {
+          label: 'Разом',
           amount: `${totalPrice} UAH`,
           paymentType: PlatformPay.PaymentType.Immediate,
-        }
-      }),
+        },
+      ],
       merchantCountryCode: 'UA',
       currencyCode: 'UAH',
       requiredBillingContactFields: [PlatformPay.ContactField.PhoneNumber],
@@ -93,14 +102,8 @@ export const initPlatformPayment = async ({
   createPaymentIntent: any
   items: ItemType[]
 }) => {
-  try {
-    const intent = await createPayment({ userID, ids, items, amount: totalPrice, createPaymentIntent })
-    const error = await confirmPlatformIntent({ intent, totalPrice, amount: totalPrice * 100, items })
-    if (error) throw new Error('CONFIRM-PAYMENT-ERROR')
-  } catch (e: any) {
-    console.log(e)
-    if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
-  }
+  const intent = await createPayment({ userID, ids, items, amount: totalPrice, createPaymentIntent })
+  return await confirmPlatformIntent({ intent, totalPrice, amount: totalPrice * 100, items })
 }
 export const confirmCardIntent = async ({ intent }: { intent: string }) => {
   const initResponse = await initPaymentSheet({
@@ -124,11 +127,7 @@ export const initCardPayment = async ({
   createPaymentIntent: any
   items: ItemType[]
 }) => {
-  try {
-    const intent = await createPayment({ userID, amount, createPaymentIntent, items })
+  const intent = await createPayment({ userID, amount, createPaymentIntent, items })
 
-    await confirmCardIntent({ intent })
-  } catch (e: any) {
-    if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
-  }
+  return await confirmCardIntent({ intent })
 }
