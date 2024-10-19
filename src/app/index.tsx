@@ -10,6 +10,7 @@ import { auth, gatewayLoadUser } from 'shared/lib/api'
 import MarketFlow from 'src/processes/market'
 import ItemDetailsScreen from 'src/processes/market/screens/ItemDetailsScreen'
 import Header from 'src/processes/auth/components/Header'
+import CartScreen from 'src/processes/market/screens/CartScreen'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -21,11 +22,12 @@ export default function AppRoot() {
   const dispatch = useAppDispatch()
   const [initializing, setInitializing] = useState(true)
   const [listenUser, setListenUser] = useState(false)
-
+  console.log(userOnboarded)
   useEffect(() => {
     const authListener = onAuthStateChanged(auth, (result) => {
       const userID = result?.uid
       if (userID) {
+        console.log(result)
         gatewayLoadUser({ userID }).then((user) => {
           dispatch(userSet(user))
         })
@@ -59,6 +61,7 @@ export default function AppRoot() {
         {/*<Stack.Screen name={Route.StockMarketStack} component={AuthorizationFlow} />*/}
         <Stack.Screen name={Route.MarketStack} component={MarketFlow} />
         <Stack.Screen options={showHeader} name={Route.ItemDetailsScreen} component={ItemDetailsScreen} />
+        <Stack.Screen options={showHeader} name={Route.CartScreen} component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -3,7 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 export const Star = ({ color = '#e5b600', size = 16, starName = 'star' }) => (
   <Icon name={starName} color={color} size={size} />
 )
-const Stars = ({ rate, size = 16 }) => {
+const Stars = ({ rate, size = 16 }: { rate: number; size?: number }) => {
   const filledStars = new Array(Math.floor(rate)).fill('star')
   const starRate = [...filledStars]
   const unfiledStars = new Array(5 - Math.round(rate)).fill('star-outline')

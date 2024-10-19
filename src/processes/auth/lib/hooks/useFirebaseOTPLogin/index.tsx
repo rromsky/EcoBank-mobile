@@ -20,9 +20,16 @@ export const useFirebaseLogin = ({ auth, firebaseConfig, modalOption, bannerOpti
     return phoneProvider.verifyPhoneNumber(phoneNumber, recaptchaVerifier.current)
   }
   const verifyOtp = async (otp: string, verificationId: string) => {
+    console.log(otp, verificationId)
     if (!verificationId || !otp) return
+    console.log('CRED_GEN')
     const credential = PhoneAuthProvider.credential(verificationId, otp)
-    return signInWithCredential(auth, credential)
+    console.log(credential, 'CRED')
+    try {
+      await signInWithCredential(auth, credential)
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return {

@@ -1,14 +1,12 @@
 import { AuthStackParamList, RootStackParamList, Route } from 'src/app/types.ts'
 import { NavigationType } from 'shared/navigation/index.ts'
 import { NavigationMethod } from './index.ts'
-import { trackScreenChange } from 'shared/lib/services/tracking'
 
 export const goToAuthStack = (
   navigation: NavigationType,
   params?: RootStackParamList[Route.AuthStack],
   navigationMethod: NavigationMethod = 'navigate'
 ) => {
-  trackScreenChange(params?.screen || Route.AuthStack)
   ;(navigation[navigationMethod] as any)(Route.AuthStack, params)
 }
 
@@ -65,5 +63,6 @@ export const goToAuthSetupDetailsScreen = (
   params?: AuthStackParamList[Route.SetupDetailsScreen],
   navigationMethod?: NavigationMethod
 ) => {
+  console.log('goToAuthSetupDetailsScreen')
   goToAuthStack(navigation, { screen: Route.SetupDetailsScreen, params }, navigationMethod)
 }

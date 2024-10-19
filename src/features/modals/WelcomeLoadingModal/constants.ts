@@ -14,7 +14,7 @@ export const MotiRootWrapperParams = {
   },
   exitTransition: {
     type: 'timing',
-    duration: 1100,
+    duration: 1400,
   },
   style: styles.root,
 }
@@ -30,7 +30,7 @@ export const MotiContentWrapperParams = {
   },
   transition: {
     type: 'timing',
-    duration: 1100,
+    duration: 1400,
   },
   style: styles.contentWrapper,
 }

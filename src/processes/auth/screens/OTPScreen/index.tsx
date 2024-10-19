@@ -33,6 +33,7 @@ const OTPVerificationScreen = () => {
         await verifyOtp(userOtpCode, otpCodeId)
         goToAuthSetupDetailsScreen(navigation)
       } catch (e) {
+        console.log(e)
         setWrongCode(true)
       } finally {
         setIsLoading(false)

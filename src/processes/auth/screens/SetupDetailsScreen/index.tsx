@@ -10,6 +10,7 @@ import DetailInput from 'shared/components/DetailInput'
 import styles from './styles'
 import { goToAuthOnboardingScreen, goToAuthWelcomeScreen } from 'shared/navigation/authStack.ts'
 import { useNavigationTyped } from 'shared/navigation'
+import { wait } from 'shared/types'
 
 const SetupDetails = () => {
   const dispatch = useAppDispatch()
@@ -73,7 +74,9 @@ const SetupDetails = () => {
           onPress={() => {
             auth.signOut()
             dispatch(userLogout)
-            goToAuthWelcomeScreen(navigation)
+            wait(100).then(() => {
+              goToAuthWelcomeScreen(navigation)
+            })
           }}
         >
           <Icon name={'chevron-left'} size={32} />

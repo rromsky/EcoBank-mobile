@@ -20,7 +20,7 @@ export default function WelcomeLoadingComponent() {
 
   useEffect(() => {
     wait(10).then(() => SplashScreen.hide())
-    wait(1200).then(closeLoading)
+    wait(1400).then(closeLoading)
   }, [])
 
   return (
@@ -37,7 +37,6 @@ export default function WelcomeLoadingComponent() {
           <Image source={ClearSplash} style={styles.background} />
         </MotiView>
       )}
-      {isWelcomeShow && <Image source={ClearSplash} style={styles.background} />}
     </AnimatePresence>
   )
 }

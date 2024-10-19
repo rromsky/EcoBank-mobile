@@ -9,21 +9,22 @@ import SetupDetailsScreen from './screens/SetupDetailsScreen'
 import { useAppSelector } from 'shared/store'
 import OnboardingScreen from 'src/processes/auth/screens/OnboardingScreen'
 import ForgotPasswordScreen from 'src/processes/auth/screens/ForgotPasswordScreen'
+import { auth } from 'shared/lib/api'
 
 const AuthStack = createStackNavigator<AuthStackParamList>()
 
 const noHeader = { headerShown: false }
 
 export default function AuthorizationFlow() {
-  const isLoggedIn = useAppSelector((state) => !!state.user.user)
-  const isDetailsSetuped = useAppSelector((state) => !!state.user?.user?.email)
+  const isLoggedIn = Boolean(auth.currentUser)
+  const isDetailsSetuped = Boolean(auth.currentUser?.email)
   return (
     <AuthStack.Navigator
       screenOptions={{
         header: () => <Header />,
       }}
     >
-      {!isLoggedIn ? (
+      {!isLoggedIn && (
         <>
           <AuthStack.Screen name={Route.WelcomeScreen} component={WelcomeScreen} options={noHeader} />
           <AuthStack.Screen name={Route.RegisterScreen} component={RegisterScreen} />
@@ -35,9 +36,12 @@ export default function AuthorizationFlow() {
           <AuthStack.Screen name={Route.LoginScreen} component={LoginScreen} />
           <AuthStack.Screen name={Route.ResetPasswordScreen} component={ForgotPasswordScreen} />
         </>
-      ) : (
+      )}
+      {isLoggedIn && (
         <>
-          <AuthStack.Screen name={Route.OnboardingScreen} component={OnboardingScreen} options={noHeader} />
+          {isDetailsSetuped && (
+            <AuthStack.Screen name={Route.OnboardingScreen} component={OnboardingScreen} options={noHeader} />
+          )}
           {!isDetailsSetuped && (
             <AuthStack.Screen name={Route.SetupDetailsScreen} component={SetupDetailsScreen} options={noHeader} />
           )}
