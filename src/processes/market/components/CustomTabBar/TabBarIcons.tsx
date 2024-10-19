@@ -2,7 +2,7 @@ import React from 'react'
 import Svg, { G, LinearGradient, Path, Stop, SvgProps } from 'react-native-svg'
 
 interface IconProps extends SvgProps {
-  isActive: boolean
+  isActive?: boolean
   text?: string
 }
 

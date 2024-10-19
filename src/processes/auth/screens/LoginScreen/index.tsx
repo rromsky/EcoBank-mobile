@@ -40,9 +40,13 @@ export default function LoginScreen() {
       return
     }
     setIsLoading(true)
-    signInWithEmailAndPassword(auth, email, password).then(() => {
-      setIsLoading(false)
-    })
+    signInWithEmailAndPassword(auth, email, password)
+      .catch(() => {
+        setIsMailValid(false)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (

@@ -26,11 +26,11 @@ const OTPVerificationScreen = () => {
 
   const { time, stopped } = useTimer({ minutes: 3, autoRefresh: true, stoppedText: 'Час вичерпано.' })
 
-  const onClickContinue = () => {
+  const onClickContinue = (autoCompleteCode?: string) => {
     setIsLoading(() => true)
     ;(async () => {
       try {
-        await verifyOtp(userOtpCode, otpCodeId)
+        await verifyOtp(autoCompleteCode || userOtpCode, otpCodeId)
         goToAuthSetupDetailsScreen(navigation)
       } catch (e) {
         console.log(e)
@@ -64,7 +64,7 @@ const OTPVerificationScreen = () => {
             numberOfDigits={6}
             onTextChange={(text) => setOtpCode(text)}
             autoFocus
-            onFilled={() => onClickContinue()}
+            onFilled={onClickContinue}
           />
           <GradientButtonFill disabled={stopped} onPress={onClickContinue}>
             Перевірити

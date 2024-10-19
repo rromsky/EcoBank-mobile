@@ -6,7 +6,6 @@ import RegisterScreen from './screens/RegisterScreen'
 import OTPVerificationScreen from './screens/OTPScreen'
 import LoginScreen from './screens/LoginScreen'
 import SetupDetailsScreen from './screens/SetupDetailsScreen'
-import { useAppSelector } from 'shared/store'
 import OnboardingScreen from 'src/processes/auth/screens/OnboardingScreen'
 import ForgotPasswordScreen from 'src/processes/auth/screens/ForgotPasswordScreen'
 import { auth } from 'shared/lib/api'
@@ -18,6 +17,7 @@ const noHeader = { headerShown: false }
 export default function AuthorizationFlow() {
   const isLoggedIn = Boolean(auth.currentUser)
   const isDetailsSetuped = Boolean(auth.currentUser?.email)
+  console.log(auth.currentUser)
   return (
     <AuthStack.Navigator
       screenOptions={{

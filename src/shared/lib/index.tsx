@@ -8,6 +8,7 @@ import {
 } from '@stripe/stripe-react-native'
 import Toast from 'react-native-toast-message'
 import { ItemType } from 'src/processes/market/screens/types.ts'
+import { it } from '@jest/globals'
 
 type responseType = {
   data?: any
@@ -53,8 +54,9 @@ export const confirmPlatformIntent = async ({
     applePay: {
       cartItems: items.map((item) => {
         return {
+          image: item.photoURL,
           label: item.title,
-          amount: `${item.price} UAH`,
+          amount: `${totalPrice} UAH`,
           paymentType: PlatformPay.PaymentType.Immediate,
         }
       }),
@@ -92,12 +94,12 @@ export const initPlatformPayment = async ({
   items: ItemType[]
 }) => {
   try {
-    const intent = await createPayment({ userID, ids, items, amount: totalPrice * 100, createPaymentIntent })
+    const intent = await createPayment({ userID, ids, items, amount: totalPrice, createPaymentIntent })
     const error = await confirmPlatformIntent({ intent, totalPrice, amount: totalPrice * 100, items })
     if (error) throw new Error('CONFIRM-PAYMENT-ERROR')
-  } catch (e) {
+  } catch (e: any) {
     console.log(e)
-    Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
+    if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
   }
 }
 export const confirmCardIntent = async ({ intent }: { intent: string }) => {
@@ -126,7 +128,7 @@ export const initCardPayment = async ({
     const intent = await createPayment({ userID, amount, createPaymentIntent, items })
 
     await confirmCardIntent({ intent })
-  } catch (e) {
-    Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
+  } catch (e: any) {
+    if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
   }
 }

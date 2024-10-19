@@ -46,7 +46,7 @@ const SetupDetails = () => {
         address,
         email,
       }
-      const { uid, emailVerified, phoneNumber, photoURL, displayName } = auth.currentUser || {}
+      const { uid, emailVerified, phoneNumber, photoURL, displayName = `${name} ${surname}` } = auth.currentUser || {}
 
       const user = {
         personalData: personalData,

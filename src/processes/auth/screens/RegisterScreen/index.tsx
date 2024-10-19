@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { KeyboardAvoidingView, Text, View } from 'react-native'
 
 import PhoneNumberInput from 'src/processes/auth/components/PhoneNumberInput'
@@ -10,16 +10,19 @@ import { goToAuthOTPVerificationScreen } from 'shared/navigation/authStack.ts'
 import { BottomText } from 'src/processes/auth/screens/RegisterScreen/components/BottomText'
 
 import styles from './styles'
+import LoadingFullScreen from 'shared/components/LoadingFullScreen'
 
 const RegisterScreen = () => {
   const navigation = useNavigationTyped()
 
   const [formattedValue, setFormattedValue] = useState('')
   const [value, setValue] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const { recaptcha, sendOtp } = useFirebaseLogin({ auth: auth, firebaseConfig: firebaseConfig })
 
   const handleSendOtp = useCallback(() => {
+    setIsLoading(true)
     sendOtp(formattedValue)
       .then((res) => {
         if (!res) {
@@ -31,10 +34,14 @@ const RegisterScreen = () => {
       .catch((e) => {
         console.log(e, 'ERROR_WHILE_GET_OTP_CODE')
       })
+      .finally(() => {
+        setIsLoading(true)
+      })
   }, [formattedValue, sendOtp, navigation])
 
   return (
     <View style={styles.root}>
+      {isLoading && <LoadingFullScreen />}
       <KeyboardAvoidingView keyboardVerticalOffset={1} behavior='padding' style={styles.container}>
         <View style={styles.gap}>
           <Text style={styles.title}>Реєстрація</Text>

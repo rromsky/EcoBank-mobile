@@ -20,4 +20,7 @@ export const theme = {
   red: '#dc3545',
   gray: '#6c757d',
   warning: '#bf760a',
+  milk: '#E0DFEE',
+
+  profileButtonLabel: '#07782d',
 }

@@ -1,6 +1,9 @@
 import { ProductStackParamList, Route } from 'src/app/types.ts'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
-import HomeScreen from 'src/processes/market/screens/HomeScreen'
+
+import HomeScreen from './screens/HomeScreen'
+import SettingsScreen from './screens/SettingsScreen'
+
 import { theme } from 'theme'
 import {
   CatalogIcon,
@@ -47,7 +50,7 @@ export default function MarketFlow() {
       />
       <MarketStack.Screen
         options={{
-          tabBarLabel: (props) => <CustomTabLabel name={'Новини'} {...props} />,
+          tabBarLabel: (props) => <CustomTabLabel name={'Навчання'} {...props} />,
           tabBarButton: CustomTabButton,
           tabBarIcon: (props) => <CatalogIcon isActive={props.focused} {...props} />,
         }}
@@ -61,7 +64,7 @@ export default function MarketFlow() {
           tabBarIcon: (props) => <ProfileIcon isActive={props.focused} {...props} />,
         }}
         name={Route.SettingsScreen}
-        component={HomeScreen}
+        component={SettingsScreen}
       />
     </MarketStack.Navigator>
   )
