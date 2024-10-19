@@ -22,12 +22,11 @@ export default function AppRoot() {
   const dispatch = useAppDispatch()
   const [initializing, setInitializing] = useState(true)
   const [listenUser, setListenUser] = useState(false)
-  console.log(userOnboarded)
+
   useEffect(() => {
     const authListener = onAuthStateChanged(auth, (result) => {
       const userID = result?.uid
       if (userID) {
-        console.log(result)
         gatewayLoadUser({ userID }).then((user) => {
           dispatch(userSet(user))
         })

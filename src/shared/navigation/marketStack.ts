@@ -3,8 +3,16 @@ import { RootStackParamList, Route } from 'src/app/types.ts'
 
 export const goToProductStack = (
   navigation: NavigationType,
-  params?: RootStackParamList[Route.AuthStack],
+  params?: RootStackParamList[Route.MarketStack],
   navigationMethod: NavigationMethod = 'navigate'
 ) => {
-  ;(navigation[navigationMethod] as any)(Route.AuthStack, params)
+  ;(navigation[navigationMethod] as any)(Route.MarketStack, params)
+}
+
+export const goToHomeScreen = (
+  navigation: NavigationType,
+  params?: RootStackParamList[Route.MarketStack],
+  navigationMethod: NavigationMethod = 'navigate'
+) => {
+  ;(navigation[navigationMethod] as any)(Route.MarketStack, params)
 }

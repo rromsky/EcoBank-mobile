@@ -32,9 +32,7 @@ export const createPayment = async ({
     ids,
     items,
   })
-  console.log(response)
   if (response.error) {
-    console.log(response)
     throw new Error('CREATE-PAYMENT-INTENT-ERROR')
   }
   return response.data.clientSecret

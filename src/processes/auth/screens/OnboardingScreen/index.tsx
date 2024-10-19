@@ -7,6 +7,8 @@ import { itemFix, Pagination } from 'src/processes/auth/screens/OnboardingScreen
 import { windowWidth } from 'shared/types'
 
 import styles from '../styles'
+import { goToHomeScreen } from 'shared/navigation/marketStack.ts'
+import { useNavigationTyped } from 'shared/navigation'
 
 const pages = [
   {
@@ -35,9 +37,12 @@ export default function OnboardingScreen() {
   const [currentPage, setCurrentPage] = useState(0)
   const flatList = useRef<FlatList>(null)
 
+  const navigation = useNavigationTyped()
+
   const setOnboardedUser = () => {
     gatewaySetUserOnboarded()
     dispatch(userUpdateOnboarding())
+    goToHomeScreen(navigation)
   }
   const onNextPage = () => {
     flatList.current?.scrollToIndex({
