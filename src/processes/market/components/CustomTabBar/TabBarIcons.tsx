@@ -50,25 +50,6 @@ export const CatalogIcon = ({ width = 24, height = 24, isActive = false, ...prop
   )
 }
 
-export const FavouriteIcon = ({ width = 24, height = 24, isActive = false, ...props }: IconProps) => {
-  return (
-    <Svg width={width} height={height} viewBox='0 0 24 24' {...props}>
-      <LinearGradient id='grad' x1='0' y1='0' x2='1' y2='0'>
-        <Stop offset='0' stopColor='#19732d' stopOpacity='1' />
-        <Stop offset='1' stopColor='#19b845' stopOpacity='1' />
-      </LinearGradient>
-      <Path
-        fill={isActive ? 'url(#grad)' : 'none'}
-        stroke={isActive ? 'url(#grad)' : 'currentColor'}
-        strokeLinecap='round'
-        strokeLinejoin='round'
-        strokeWidth={1.5}
-        d='M19.463 3.994c-2.682-1.645-5.023-.982-6.429.074c-.576.433-.864.65-1.034.65s-.458-.217-1.034-.65C9.56 3.012 7.219 2.349 4.537 3.994C1.018 6.153.222 13.274 8.34 19.284C9.886 20.427 10.659 21 12 21s2.114-.572 3.66-1.717c8.118-6.008 7.322-13.13 3.803-15.289'
-      ></Path>
-    </Svg>
-  )
-}
-
 export const ProfileIcon = ({ width = 24, height = 24, isActive = false, ...props }: IconProps) => {
   return (
     <Svg width={width} height={height} viewBox='0 0 24 24' {...props}>
@@ -84,6 +65,23 @@ export const ProfileIcon = ({ width = 24, height = 24, isActive = false, ...prop
         strokeWidth={1.5}
         d='M6.578 15.482c-1.415.842-5.125 2.562-2.865 4.715C4.816 21.248 6.045 22 7.59 22h8.818c1.546 0 2.775-.752 3.878-1.803c2.26-2.153-1.45-3.873-2.865-4.715a10.66 10.66 0 0 0-10.844 0M16.5 6.5a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0'
       ></Path>
+    </Svg>
+  )
+}
+
+export const ChartIcon = ({ width = 24, height = 24, isActive = false, ...props }: IconProps) => {
+  return (
+    <Svg width={width} height={height} {...props} viewBox='0 0 100 100' id='stockchart'>
+      <LinearGradient id='grad' x1='0' y1='0' x2='1' y2='0'>
+        <Stop offset='0' stopColor='#19732d' stopOpacity='1' />
+        <Stop offset='1' stopColor='#19b845' stopOpacity='1' />
+      </LinearGradient>
+      <Path
+        d='M91 86c0 .55-.45 1-1 1H10c-.55 0-1-.45-1-1V14c0-.55.45-1 1-1s1 .45 1 1v71h79c.55 0 1 .45 1 1M19 70V52c0-.55.45-1 1-1h3v-5c0-.55.45-1 1-1s1 .45 1 1v5h3c.55 0 1 .45 1 1v18c0 .55-.45 1-1 1h-3v5c0 .55-.45 1-1 1s-1-.45-1-1v-5h-3c-.55 0-1-.45-1-1m2-1h6V53h-6zm16-5V32c0-.55.45-1 1-1h3v-5c0-.55.45-1 1-1s1 .45 1 1v5h3c.55 0 1 .45 1 1v32c0 .55-.45 1-1 1h-3v11c0 .55-.45 1-1 1s-1-.45-1-1V65h-3c-.55 0-1-.45-1-1m2-1h6V33h-6zm16-11V22c0-.55.45-1 1-1h3v-7c0-.55.45-1 1-1s1 .45 1 1v7h3c.55 0 1 .45 1 1v30c0 .55-.45 1-1 1h-3v15c0 .55-.45 1-1 1s-1-.45-1-1V53h-3c-.55 0-1-.45-1-1m2-1h6V23h-6zm16 9V40c0-.55.45-1 1-1h3v-5c0-.55.45-1 1-1s1 .45 1 1v5h3c.55 0 1 .45 1 1v20c0 .55-.45 1-1 1h-3v11c0 .55-.45 1-1 1s-1-.45-1-1V61h-3c-.55 0-1-.45-1-1m2-1h6V41h-6z'
+        fill={isActive ? 'url(#grad)' : '#1650007F'}
+        stroke={isActive ? 'url(#grad)' : '#1650007F'}
+        strokeWidth={1.5}
+      />
     </Svg>
   )
 }

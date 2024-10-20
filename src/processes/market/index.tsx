@@ -7,11 +7,13 @@ import SettingsScreen from './screens/SettingsScreen'
 import { theme } from 'theme'
 import {
   CatalogIcon,
+  ChartIcon,
   CustomTabButton,
   CustomTabLabel,
   HomeIcon,
   ProfileIcon,
 } from 'src/processes/market/components/CustomTabBar'
+import LearningScreen from 'src/processes/market/screens/LearningScreen'
 
 const MarketStack = createBottomTabNavigator<ProductStackParamList>()
 
@@ -50,12 +52,21 @@ export default function MarketFlow() {
       />
       <MarketStack.Screen
         options={{
+          tabBarLabel: (props) => <CustomTabLabel name={'Інвестиції'} {...props} />,
+          tabBarButton: CustomTabButton,
+          tabBarIcon: (props) => <ChartIcon isActive={props.focused} {...props} />,
+        }}
+        name={Route.StockMarketScreen}
+        component={LearningScreen}
+      />
+      <MarketStack.Screen
+        options={{
           tabBarLabel: (props) => <CustomTabLabel name={'Навчання'} {...props} />,
           tabBarButton: CustomTabButton,
           tabBarIcon: (props) => <CatalogIcon isActive={props.focused} {...props} />,
         }}
-        name={Route.StockHomeScreen}
-        component={HomeScreen}
+        name={Route.LearningScreen}
+        component={LearningScreen}
       />
       <MarketStack.Screen
         options={{
