@@ -6,7 +6,7 @@ import GradientButtonFill from 'shared/components/GradientButtonFill'
 import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
 
-export const OpenCartButton = () => {
+const OpenCartButton = () => {
   const isButtonShown = useAppSelector((state) => state.cart.isButtonShown)
   const totalPrice = useAppSelector((state) => state.cart.totalPrice)
 
@@ -32,3 +32,5 @@ export const OpenCartButton = () => {
     )
   )
 }
+
+export default React.memo(OpenCartButton)

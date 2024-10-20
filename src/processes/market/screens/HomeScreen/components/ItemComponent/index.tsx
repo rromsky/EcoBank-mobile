@@ -1,4 +1,4 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import React from 'react'
 import { useAppDispatch, useAppSelector, User, userUpdateFavouriteList } from 'shared/store'
@@ -8,6 +8,7 @@ import { windowWidth } from 'shared/types'
 import { LineDecorator } from 'shared/components'
 import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
+import FastImage from 'react-native-fast-image'
 
 const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean }) => {
   const user: User = useAppSelector((state) => state.user.user)
@@ -45,12 +46,12 @@ const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean
           gap: 8,
         }}
       >
-        <Image
+        <FastImage
           source={{ uri: item.photoURL }}
+          resizeMode={FastImage.resizeMode.contain}
           style={{
             width: (windowWidth - 24 * 3) / 2,
             height: (windowWidth - 32 * 3) / 2 / 1.5,
-            resizeMode: 'contain',
             borderRadius: 10,
           }}
         />

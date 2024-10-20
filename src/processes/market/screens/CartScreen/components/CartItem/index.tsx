@@ -1,10 +1,11 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native'
+import { Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { ItemType } from 'src/processes/market/screens/types'
 import { Route } from 'src/app/types'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import { cartRemoveItem, useAppDispatch } from 'shared/store'
+import FastImage from 'react-native-fast-image'
 
 export const CartItem = ({ item }: { item: ItemType }) => {
   const dispatch = useAppDispatch()
@@ -26,12 +27,12 @@ export const CartItem = ({ item }: { item: ItemType }) => {
             marginBottom: 8,
           }}
         >
-          <Image
+          <FastImage
             source={{ uri: item?.photoURL }}
+            resizeMode={FastImage.resizeMode.contain}
             style={{
               width: 144,
               height: 144,
-              resizeMode: 'contain',
               borderRadius: 10,
             }}
           />
@@ -99,3 +100,13 @@ export const CartItem = ({ item }: { item: ItemType }) => {
     )
   )
 }
+
+//   <FastImage
+//         style={{ width: 200, height: 200 }}
+//         source={{
+//             uri: 'https://unsplash.it/400/400?image=1',
+//             headers: { Authorization: 'someAuthToken' },
+//             priority: FastImage.priority.normal,
+//         }}
+//         resizeMode={FastImage.resizeMode.contain}
+//     />

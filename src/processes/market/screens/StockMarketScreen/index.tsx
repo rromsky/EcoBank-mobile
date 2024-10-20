@@ -3,14 +3,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useCallback } from 'react'
 import { useAppSelector } from 'shared/store'
 import { useInfiniteScroll } from 'shared/hooks/useInfiniteScroll.tsx'
-import { OpenCartButton } from 'src/processes/market/screens/HomeScreen/components/OpenCartButton'
+import { OpenCartButton } from './components/OpenCartButton'
 import { BottomGradient } from 'shared/components/BottomGradient'
-import ItemComponent from 'src/processes/market/screens/HomeScreen/components/ItemComponent'
+import ItemComponent from './components/ItemComponent'
 import { ItemType } from 'src/processes/market/screens/types.ts'
-import { SearchBar } from 'src/processes/market/screens/HomeScreen/components/SearchBar'
+import { SearchBar } from './components/SearchBar'
 import { useMarketItems } from 'shared/hooks/useMarketItems.ts'
 
-const HomeScreen = () => {
+const StockMarketScreen = () => {
   const { isLoading, filteredItems, refetchItems, setSearchString, searchString } = useMarketItems()
   const isButtonShown = useAppSelector((state) => state.cart.isButtonShown)
 
@@ -56,4 +56,4 @@ const HomeScreen = () => {
   )
 }
 
-export default HomeScreen
+export default StockMarketScreen

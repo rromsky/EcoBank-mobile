@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import { ProfileIcon } from 'src/processes/market/components/CustomTabBar'
 import { useAppDispatch, useAppSelector, userLogout } from 'shared/store'
-import ProfileButton from 'src/processes/market/screens/SettingsScreen/components/ProfileButton'
+import ProfileButton from './components/ProfileButton'
 
 import styles from './styles'
 import Icon from 'react-native-vector-icons/Entypo'

@@ -14,10 +14,9 @@ import {
   ProfileIcon,
 } from 'src/processes/market/components/CustomTabBar'
 import LearningScreen from 'src/processes/market/screens/LearningScreen'
+import StockMarketScreen from 'src/processes/market/screens/StockMarketScreen'
 
 const MarketStack = createBottomTabNavigator<ProductStackParamList>()
-
-const noHeader = { headerShown: false }
 
 export const screenOptions = {
   headerShown: false,
@@ -57,7 +56,7 @@ export default function MarketFlow() {
           tabBarIcon: (props) => <ChartIcon isActive={props.focused} {...props} />,
         }}
         name={Route.StockMarketScreen}
-        component={LearningScreen}
+        component={StockMarketScreen}
       />
       <MarketStack.Screen
         options={{
