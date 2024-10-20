@@ -21,13 +21,13 @@ const pages = [
     header: 'Захист',
     subHeader:
       'Безпека ваших фінансів та даних — наш головний пріоритет. Використовуємо сучасні технології для максимального захисту на кожному етапі.',
-    image: 'https://i.ibb.co/K2JMNfT/Removebg-preview.png',
+    image: 'https://i.ibb.co/6wZGnWq/removal-ai-5aab9bca-70a6-40e6-93c8-14403b906f0a-file-mijkpyqdcjsvntmxoezsjafa.png',
   },
   {
     header: 'Майбутнє',
     subHeader:
       'Відкрийте нові можливості для пасивного доходу. Розвивайтесь та навчайтесь з Дія Освіта, інвестуючи у своє майбутнє.',
-    image: 'https://i.ibb.co/ysQWgPD/Remove-BG-Preview-1.png',
+    image: 'https://i.ibb.co/TPhQxPw/1729414107982.png',
   },
 ]
 

@@ -2,7 +2,7 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import { useState } from 'react'
 import { EmailAuthProvider, linkWithCredential } from 'firebase/auth'
-import { updateUserPersonalData, useAppDispatch, useAppSelector, userLogout } from 'shared/store'
+import { updateUserPersonalData, useAppDispatch, useAppSelector, userLogout, userSet } from 'shared/store'
 import { emailValidator, passwordValidator } from 'src/processes/auth/screens/LoginScreen'
 import { auth, gatewaySetUser } from 'shared/lib/api'
 import GradientButtonFill from 'shared/components/GradientButtonFill'
@@ -56,11 +56,12 @@ const SetupDetails = () => {
         phoneNumber,
         photoURL,
         displayName,
+        marketData: { favouriteItems: [] },
       }
       linkWithCredential(auth.currentUser, cred).then(() => {
-        dispatch(updateUserPersonalData(personalData))
+        dispatch(userSet(user))
 
-        gatewaySetUser({ user } as any)
+        gatewaySetUser({ user })
         goToAuthOnboardingScreen(navigation)
       })
     }

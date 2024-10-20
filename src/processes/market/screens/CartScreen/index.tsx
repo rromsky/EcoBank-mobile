@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
+import { Alert, FlatList, Platform, SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import IOIcon from 'react-native-vector-icons/Ionicons'
 import Fontisio from 'react-native-vector-icons/Fontisto'
 import { PlatformPay, PlatformPayButton } from '@stripe/stripe-react-native'
-import { cartClean, useAppDispatch, useAppSelector } from 'shared/store'
+import { cartClean, useAppDispatch, useAppSelector, User } from 'shared/store'
 import { ItemType } from 'src/processes/market/screens/types.ts'
 import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
@@ -23,6 +23,7 @@ const CartScreen = () => {
   const [isDefaultMethod, setMethodDefault] = useState(true)
   const userID = useAppSelector((state) => state.user.user.uid)
   const [isLoading, setIsLoading] = useState(false)
+  const user: User = useAppSelector((state) => state.user.user)
 
   const navigation = useNavigationTyped()
   const dispatch = useAppDispatch()
@@ -37,36 +38,47 @@ const CartScreen = () => {
 
   const [createPaymentIntent] = useCreatePaymentIntentMutation()
 
-  const initPayment = () => {
-    setIsLoading(true)
-    ;(isDefaultMethod
-      ? initPlatformPayment({
-          userID: userID,
-          ids: items.map((el: ItemType) => el?.code),
-          items,
-          totalPrice: total + 5,
-          createPaymentIntent,
-        })
-      : initCardPayment({
-          userID: userID,
-          amount: total + 5,
-          createPaymentIntent,
-          items,
-        })
-    )
-      .then((e) => {
-        if (e) {
-          if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
-          return
-        }
-        Toast.show({ text1: 'Оплата успішна', type: 'success', position: 'bottom' })
-        dispatch(cartClean())
-        goToHome()
-      })
-      .catch((e: any) => {
-        if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
-      })
-      .finally(() => setIsLoading(false))
+  const initPayment = async () => {
+    Alert.alert('Підтвердження', `Ви впевнені, що ваша адреса ${user.personalData?.address}?`, [
+      {
+        text: 'Ні',
+        onPress: () => console.log('Ask me later pressed'),
+      },
+      {
+        text: 'Так',
+        onPress: () => {
+          setIsLoading(true)
+          ;(isDefaultMethod
+            ? initPlatformPayment({
+                userID: userID,
+                ids: items.map((el: ItemType) => el?.code),
+                items,
+                totalPrice: total + 5,
+                createPaymentIntent,
+              })
+            : initCardPayment({
+                userID: userID,
+                amount: total + 5,
+                createPaymentIntent,
+                items,
+              })
+          )
+            .then((e) => {
+              if (e) {
+                if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
+                return
+              }
+              Toast.show({ text1: 'Оплата успішна', type: 'success', position: 'bottom' })
+              dispatch(cartClean())
+              goToHome()
+            })
+            .catch((e: any) => {
+              if (e?.code !== 'Canceled') Toast.show({ type: 'error', text1: 'Something went wrong. Try again!' })
+            })
+            .finally(() => setIsLoading(false))
+        },
+      },
+    ])
   }
 
   return (
