@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import "RNSplashScreen.h"
-
+#import <AVFoundation/AVFoundation.h>
 #import <React/RCTBundleURLProvider.h>
 
 @implementation AppDelegate
@@ -10,6 +10,7 @@
   self.moduleName = @"EcoBank";
 
   self.initialProps = @{};
+  [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error: nil];
   BOOL ret = [super application:application didFinishLaunchingWithOptions:launchOptions];
   if (ret == YES)
   {

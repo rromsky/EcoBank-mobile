@@ -58,7 +58,6 @@ export default function AppRoot() {
         }}
       >
         {(!userOnboarded || !isLoggedIn) && <Stack.Screen name={Route.AuthStack} component={AuthorizationFlow} />}
-        {/*<Stack.Screen name={Route.StockMarketStack} component={AuthorizationFlow} />*/}
         <Stack.Screen name={Route.MarketStack} component={MarketFlow} />
         <Stack.Screen options={showHeader} name={Route.ItemDetailsScreen} component={ItemDetailsScreen} />
         <Stack.Screen options={showHeader} name={Route.CartScreen} component={CartScreen} />

@@ -9,11 +9,12 @@ interface Props {
   title: string
   secondTitle?: string
   onPress: () => void
+  disabled?: boolean
 }
 
-export default function ProfileButton({ iconName, title, secondTitle, onPress }: Props) {
+export default function ProfileButton({ iconName, title, secondTitle, onPress, disabled }: Props) {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.root}>
+    <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.root}>
       <View style={styles.container}>
         <Icon name={iconName} color={theme.profileButtonLabel} size={38} />
         <Text style={styles.label}>{title}</Text>

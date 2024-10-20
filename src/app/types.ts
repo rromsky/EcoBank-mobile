@@ -19,10 +19,9 @@ export enum Route {
   HomeScreen = 'HomeScreen',
   CartScreen = 'CartScreen',
   ItemDetailsScreen = 'ItemDetailsScreen',
-  PaymentScreen = 'PaymentScreen',
-
+  LearningScreen = 'LearningScreen',
   StockDetailsScreen = 'StockDetailsScreen',
-  StockHomeScreen = 'StockHomeScreen',
+  StockMarketScreen = 'StockMarketScreen',
 }
 
 export type AuthStackParamList = {
@@ -39,20 +38,24 @@ export type AuthStackParamList = {
 
 export type ProductStackParamList = {
   [Route.HomeScreen]: undefined
-  [Route.StockHomeScreen]: undefined
-  [Route.SettingsScreen]: undefined
-}
-
-export type StockMarketStackParamList = {
+  [Route.StockMarketScreen]: undefined
   [Route.StockDetailsScreen]: {
     stock: any // TODO: define stock type
   }
+  [Route.LearningScreen]: undefined
+  [Route.SettingsScreen]: undefined
 }
+
+// export type StockMarketStackParamList = {
+//   [Route.StockDetailsScreen]: {
+//     stock: any // TODO: define stock type
+//   }
+// }
 
 export type RootStackParamList = {
   [Route.AuthStack]: NavigatorScreenParams<AuthStackParamList>
   [Route.MarketStack]: NavigatorScreenParams<ProductStackParamList>
-  [Route.StockMarketStack]: NavigatorScreenParams<StockMarketStackParamList>
+  // [Route.StockMarketStack]: NavigatorScreenParams<StockMarketStackParamList>
   [Route.ItemDetailsScreen]: {
     item: ItemType // TODO: define item type
   }

@@ -27,17 +27,17 @@ export default function SettingsScree() {
           <ProfileIcon width={48} height={48} isActive />
           <Text style={styles.title}>{`${user.personalData.name} ${user.personalData.surname}`}</Text>
         </View>
-        <ProfileButton iconName={'user'} title={'Персональні дані'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'user'} title={'Персональні дані'} onPress={() => {}} />
 
-        <ProfileButton iconName={'shopping-cart'} title={'Мої замовлення'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'shopping-cart'} title={'Мої замовлення'} onPress={() => {}} />
 
-        <ProfileButton iconName={'stopwatch'} title={'Трекер'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'stopwatch'} title={'Трекер'} onPress={() => {}} />
 
-        <ProfileButton iconName={'credit-card'} title={'Платіжні налаштування'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'credit-card'} title={'Платіжні налаштування'} onPress={() => {}} />
 
-        <ProfileButton iconName={'help'} title={'Служба підтримки'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'help'} title={'Служба підтримки'} onPress={() => {}} />
 
-        <ProfileButton iconName={'cog'} title={'Налаштування'} onPress={() => {}} />
+        <ProfileButton disabled iconName={'cog'} title={'Налаштування'} onPress={() => {}} />
       </View>
       <TouchableOpacity onPress={onLogout} style={styles.logoutButton}>
         <Icon name={'log-out'} size={24} color={theme.red} />
