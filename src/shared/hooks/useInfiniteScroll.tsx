@@ -2,7 +2,12 @@ import { useState } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 import { wait } from 'shared/types'
 
-export const useInfiniteScroll = ({ items, step = 1, initialPage = 1 }: any) => {
+export const useInfiniteScroll = ({
+  items,
+  step = 1,
+  initialPage = 1,
+  noItemsLabel = 'Всі товари переглянуто.',
+}: any) => {
   const [pageNumber, setPageNumber] = useState<number>(initialPage)
   const [isNewItemsLoading, setIsNewItemsLoading] = useState(false)
   const [isLastPage, setIsLastPage] = useState(false)
@@ -26,7 +31,7 @@ export const useInfiniteScroll = ({ items, step = 1, initialPage = 1 }: any) => 
         return <ActivityIndicator size={'large'} />
       }
     } else {
-      return <Text style={{ alignSelf: 'center' }}>Всі товари переглянуто.</Text>
+      return <Text style={{ alignSelf: 'center' }}>{noItemsLabel}</Text>
     }
   }
 

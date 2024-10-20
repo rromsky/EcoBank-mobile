@@ -39,9 +39,6 @@ export type AuthStackParamList = {
 export type ProductStackParamList = {
   [Route.HomeScreen]: undefined
   [Route.StockMarketScreen]: undefined
-  [Route.StockDetailsScreen]: {
-    stock: any // TODO: define stock type
-  }
   [Route.LearningScreen]: undefined
   [Route.SettingsScreen]: undefined
 }
@@ -58,6 +55,10 @@ export type RootStackParamList = {
   // [Route.StockMarketStack]: NavigatorScreenParams<StockMarketStackParamList>
   [Route.ItemDetailsScreen]: {
     item: ItemType // TODO: define item type
+  }
+
+  [Route.StockDetailsScreen]: {
+    stock: any // TODO: define stock type
   }
   [Route.CartScreen]: undefined
 }

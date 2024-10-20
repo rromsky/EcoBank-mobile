@@ -8,90 +8,50 @@ import { windowWidth } from 'shared/types'
 import { LineDecorator } from 'shared/components'
 import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
+import { StockData } from 'shared/hooks/useStocksData.ts'
+import { theme } from 'theme'
 
-const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean }) => {
-  const user: User = useAppSelector((state) => state.user.user)
-  const favoriteList: string[] = useAppSelector((state) => state.user.user?.marketData?.favouriteItems)
-  const isFavorite = favoriteList?.includes(item.code)
-
-  const dispatch = useAppDispatch()
+const ItemComponent = ({ item, isLoading }: { item: StockData; isLoading: boolean }) => {
   const navigation = useNavigationTyped()
 
-  const handleFavoriteClick = () => {
-    const newList = isFavorite
-      ? user.marketData.favouriteItems.filter((listItem) => listItem !== item.code) || []
-      : [...favoriteList, item.code]
-
-    dispatch(userUpdateFavouriteList(newList))
-    gatewayUpdateUserFavourite(newList)
-  }
   return (
     <TouchableOpacity
-      style={{ marginHorizontal: 8 }}
+      style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 12 }}
       onPress={() => {
-        navigation.navigate(Route.ItemDetailsScreen, { item })
-        // Navigate to details
+        navigation.navigate(Route.StockDetailsScreen as any, { item })
       }}
     >
       <View
         style={{
           borderRadius: 10,
-          backgroundColor: '#fafafa',
-          width: (windowWidth - 16 * 3) / 2,
+          backgroundColor: theme.base10,
+          width: '100%',
+          height: 82,
           alignItems: 'center',
           padding: 4,
           paddingBottom: 14,
           justifyContent: 'center',
-          gap: 8,
+          flexDirection: 'row',
+          gap: 12,
         }}
       >
-        <Image
-          source={{ uri: item.photoURL }}
-          style={{
-            width: (windowWidth - 24 * 3) / 2,
-            height: (windowWidth - 32 * 3) / 2 / 1.5,
-            resizeMode: 'contain',
-            borderRadius: 10,
-          }}
-        />
-        {!isLoading && (
-          <TouchableOpacity
-            onPress={handleFavoriteClick}
-            style={{
-              position: 'absolute',
-              zIndex: 4,
-              top: 5,
-              left: 5,
-              borderRadius: 50,
-              overflow: 'hidden',
-            }}
-          >
-            <Icon
-              name={isFavorite ? 'heart' : 'heart-o'}
-              style={{
-                zIndex: 4,
-                borderRadius: 50,
-                padding: 4,
-                backgroundColor: '#04b108',
-              }}
-              color={'#fff'}
-              size={20}
-            />
-          </TouchableOpacity>
-        )}
+        <Text style={{ fontFamily: 'Manrope-Bold', fontSize: 24 }} adjustsFontSizeToFit numberOfLines={1}>
+          {item?.symbol}
+        </Text>
+        <LineDecorator vertical width={64} />
 
-        <View style={{ gap: 8, height: 82 }}>
+        <View style={{ gap: 2, height: 82, justifyContent: 'center' }}>
           <Text
             numberOfLines={1}
-            ellipsizeMode={'tail'}
             style={{
               fontFamily: 'Manrope-SemiBold',
               color: '#141314',
-              maxWidth: '85%',
+              maxWidth: '60%',
               fontSize: 16,
             }}
+            adjustsFontSizeToFit
           >
-            {item.title}
+            {item.name}
           </Text>
           <Text
             numberOfLines={1}
@@ -103,17 +63,20 @@ const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean
               fontSize: 12,
             }}
           >
-            {item.shortDescription}
+            {item.stock_exchange.website}
           </Text>
-          <LineDecorator />
+          <LineDecorator width={windowWidth / 2} />
           <Text
             style={{
               fontSize: 16,
               color: '#141314',
               fontFamily: 'Manrope-Bold',
+              maxWidth: '65%',
             }}
+            adjustsFontSizeToFit
+            numberOfLines={1}
           >
-            ₴{item.price}
+            Description is not provided in free API's.
           </Text>
         </View>
       </View>
