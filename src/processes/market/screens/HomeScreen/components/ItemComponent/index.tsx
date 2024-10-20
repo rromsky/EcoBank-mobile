@@ -10,6 +10,8 @@ import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
 import FastImage from 'react-native-fast-image'
 
+import styles from './styles'
+
 const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean }) => {
   const user: User = useAppSelector((state) => state.user.user)
   const favoriteList: string[] = useAppSelector((state) => state.user.user?.marketData?.favouriteItems)
@@ -34,88 +36,23 @@ const ItemComponent = ({ item, isLoading }: { item: ItemType; isLoading: boolean
         // Navigate to details
       }}
     >
-      <View
-        style={{
-          borderRadius: 10,
-          backgroundColor: '#fafafa',
-          width: (windowWidth - 16 * 3) / 2,
-          alignItems: 'center',
-          padding: 4,
-          paddingBottom: 14,
-          justifyContent: 'center',
-          gap: 8,
-        }}
-      >
-        <FastImage
-          source={{ uri: item.photoURL }}
-          resizeMode={FastImage.resizeMode.contain}
-          style={{
-            width: (windowWidth - 24 * 3) / 2,
-            height: (windowWidth - 32 * 3) / 2 / 1.5,
-            borderRadius: 10,
-          }}
-        />
+      <View style={styles.root}>
+        <FastImage source={{ uri: item.photoURL }} resizeMode={FastImage.resizeMode.contain} style={styles.image} />
         {!isLoading && (
-          <TouchableOpacity
-            onPress={handleFavoriteClick}
-            style={{
-              position: 'absolute',
-              zIndex: 4,
-              top: 5,
-              left: 5,
-              borderRadius: 50,
-              overflow: 'hidden',
-            }}
-          >
-            <Icon
-              name={isFavorite ? 'heart' : 'heart-o'}
-              style={{
-                zIndex: 4,
-                borderRadius: 50,
-                padding: 4,
-                backgroundColor: '#04b108',
-              }}
-              color={'#fff'}
-              size={20}
-            />
+          <TouchableOpacity onPress={handleFavoriteClick} style={styles.content}>
+            <Icon name={isFavorite ? 'heart' : 'heart-o'} style={styles.icon} color={'#fff'} size={20} />
           </TouchableOpacity>
         )}
 
         <View style={{ gap: 8, height: 82 }}>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode={'tail'}
-            style={{
-              fontFamily: 'Manrope-SemiBold',
-              color: '#141314',
-              maxWidth: '85%',
-              fontSize: 16,
-            }}
-          >
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.title}>
             {item.title}
           </Text>
-          <Text
-            numberOfLines={1}
-            ellipsizeMode={'tail'}
-            style={{
-              fontFamily: 'Manrope-Regular',
-              color: '#141314',
-              maxWidth: '85%',
-              fontSize: 12,
-            }}
-          >
+          <Text numberOfLines={1} ellipsizeMode={'tail'} style={styles.description}>
             {item.shortDescription}
           </Text>
           <LineDecorator />
-          <Text
-            style={{
-              fontSize: 16,
-              color: '#141314',
-              fontFamily: 'Manrope-Bold',
-            }}
-          >
-            ₴{item.price}
-          </Text>
+          <Text style={styles.price}>₴{item.price}</Text>
         </View>
       </View>
     </TouchableOpacity>
