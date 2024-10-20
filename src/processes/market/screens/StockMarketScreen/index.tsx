@@ -53,7 +53,7 @@ const StockMarketScreen = () => {
       <SearchBar searchString={searchString} onChangeText={setSearchString} />
       <FlatList
         refreshControl={
-          <RefreshControl style={{ backgroundColor: '#EFEEEEDD' }} refreshing={isLoading} onRefresh={refetchItems} />
+          <RefreshControl style={{ backgroundColor: '#EFEEEEDD' }} refreshing={false} onRefresh={refetchItems} />
         }
         contentContainerStyle={{
           paddingTop: 12,

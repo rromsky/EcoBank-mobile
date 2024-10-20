@@ -12,6 +12,7 @@ import styles from './styles'
 import { windowWidth } from 'shared/types'
 import { LineChart } from 'react-native-chart-kit'
 import { useStockChartData } from 'shared/hooks/useStocksData.ts'
+import LoadingFullScreen from 'shared/components/LoadingFullScreen'
 
 export const AchiveContainer = ({ label, value }: { label: string; value: string }) => {
   return (
@@ -24,61 +25,62 @@ export const AchiveContainer = ({ label, value }: { label: string; value: string
 const ItemDetailsScreen = () => {
   // @ts-ignore
   const item = useRoute<RootStackParamList[Route.StockDetailsScreen]>().params.item
-  const itemData = useStockChartData(item.symbol).stocksDetails
+  const { isLoading, stocksDetails: itemData } = useStockChartData(item.symbol)
   const dispatch = useAppDispatch()
   const navigation = useNavigationTyped()
   console.log(itemData)
   return (
     <SafeAreaView style={styles.root}>
+      {isLoading && <LoadingFullScreen />}
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.imageContainer}>
-          {itemData && (
-            <LineChart
-              data={{
-                labels: itemData.map((el, i) => {
-                  const numberOfHours = Math.floor(i / 4)
-                  let result = ''
-                  if (!!numberOfHours) {
-                    result += `${numberOfHours}h `
-                  }
-                  result += `${(i % 4) * 15}m`
-                  return result
-                }),
-                datasets: [
-                  {
-                    data: itemData?.map((el) => {
-                      return el.last
-                    }),
-                  },
-                ],
-              }}
-              width={windowWidth} // from react-native
-              height={240}
-              yAxisLabel='$'
-              yAxisSuffix='k'
-              yAxisInterval={1} // optional, defaults to 1
-              chartConfig={{
-                backgroundColor: '#82e39d',
-                backgroundGradientFrom: '#19732d',
-                backgroundGradientTo: '#19b845',
-                decimalPlaces: 2, // optional, defaults to 2dp
-                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-                style: {
-                  borderRadius: 16,
+          <LineChart
+            data={{
+              labels: itemData?.map((el, i) => {
+                const numberOfHours = Math.floor(i / 4)
+                let result = ''
+                if (!!numberOfHours) {
+                  result += `${numberOfHours}h `
+                }
+                result += `${(i % 4) * 15}m`
+                return result
+              }) || ['Loading'],
+              datasets: [
+                {
+                  data: itemData?.map((el) => {
+                    return el.last
+                  }) || [0],
                 },
-                propsForDots: {
-                  r: '6',
-                  strokeWidth: '2',
-                  stroke: '#ffa726',
-                },
-              }}
-              bezier
-              style={{
-                marginVertical: 8,
-              }}
-            />
-          )}
+              ],
+            }}
+            width={windowWidth} // from react-native
+            height={240}
+            yAxisLabel='$'
+            yAxisSuffix='k'
+            yAxisInterval={1} // optional, defaults to 1
+            chartConfig={{
+              backgroundColor: '#82e39d',
+              backgroundGradientFrom: '#19732d',
+              backgroundGradientTo: '#19b845',
+              decimalPlaces: 2, // optional, defaults to 2dp
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 4,
+              },
+              propsForDots: {
+                r: '6',
+                strokeWidth: '2',
+                stroke: '#ffa726',
+              },
+            }}
+            bezier
+            style={{
+              backgroundColor: '#19732d',
+              marginVertical: 8,
+              paddingHorizontal: 4,
+            }}
+          />
         </View>
         <View>
           <Text style={styles.title} numberOfLines={5} ellipsizeMode={'tail'}>
@@ -93,20 +95,19 @@ const ItemDetailsScreen = () => {
             <AchiveContainer label={'CLOSE: '} value={`${itemData?.at(-1)?.close} $`} />
           </View>
         </View>
-
-        <View style={styles.contentContainer}>
-          <View>
-            <GradientButtonFill
-              onPress={() => {
-                dispatch(cartAddItem(item))
-                navigation.goBack()
-              }}
-            >
-              Купити
-            </GradientButtonFill>
-          </View>
-        </View>
       </ScrollView>
+      <View style={styles.contentContainer}>
+        <View>
+          <GradientButtonFill
+            onPress={() => {
+              dispatch(cartAddItem(item))
+              navigation.goBack()
+            }}
+          >
+            Купити
+          </GradientButtonFill>
+        </View>
+      </View>
     </SafeAreaView>
   )
 }

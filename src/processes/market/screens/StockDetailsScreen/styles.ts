@@ -3,15 +3,22 @@ import { windowHeight, windowWidth } from 'shared/types'
 import { theme } from 'theme'
 
 export default StyleSheet.create({
-  root: { alignItems: 'center', justifyContent: 'center', flexGrow: 1 },
+  root: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexGrow: 1,
+  },
   content: {
     marginTop: 64,
     marginBottom: 12,
     width: windowWidth,
-    paddingBottom: 120,
     gap: 18,
   },
-  contentContainer: {},
+  contentContainer: {
+    marginHorizontal: 24,
+    width: windowWidth - 48,
+    marginBottom: 32,
+  },
   imageContainer: {
     position: 'relative',
     alignSelf: 'center',
