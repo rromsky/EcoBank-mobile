@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import { theme } from 'theme'
 import { useNavigationTyped } from 'shared/navigation'
 import { goToAuthWelcomeScreen } from 'shared/navigation/authStack.ts'
+import { auth } from 'shared/lib/api'
 
 export default function SettingsScree() {
   const user = useAppSelector((state) => state.user.user)
@@ -16,9 +17,12 @@ export default function SettingsScree() {
   const navigation = useNavigationTyped()
 
   const onLogout = () => {
-    dispatch(userLogout())
-    goToAuthWelcomeScreen(navigation)
+    auth.signOut().then(() => {
+      dispatch(userLogout())
+      goToAuthWelcomeScreen(navigation)
+    })
   }
+  if (!user) return null
 
   return (
     <SafeAreaView style={styles.root}>

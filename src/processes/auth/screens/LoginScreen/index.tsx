@@ -81,9 +81,7 @@ export default function LoginScreen() {
             />
           </View>
           <View style={styles.bottomContainer}>
-            <GradientButtonFill disabled={!isEmailValid || !isPasswordValid} onPress={onClickContinue}>
-              УВІЙТИ
-            </GradientButtonFill>
+            <GradientButtonFill onPress={onClickContinue}>УВІЙТИ</GradientButtonFill>
             <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
               <TouchableOpacity
                 onPress={() => {

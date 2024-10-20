@@ -43,7 +43,7 @@ const StockMarketScreen = () => {
     [isLoading]
   )
   const RenderListLoader = useCallback(() => {
-    return <ListEndLoader isLoading />
+    return <></>
   }, [isLoading])
   const { bottom } = useSafeAreaInsets()
 

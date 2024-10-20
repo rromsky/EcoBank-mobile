@@ -99,12 +99,14 @@ const ItemDetailsScreen = () => {
       <View style={styles.contentContainer}>
         <View>
           <GradientButtonFill
+            disabled
+            disabledColors={['#000000', '#444214']}
             onPress={() => {
               dispatch(cartAddItem(item))
               navigation.goBack()
             }}
           >
-            Купити
+            Авторизуватись з ДІЯ
           </GradientButtonFill>
         </View>
       </View>
