@@ -11,6 +11,7 @@ import MarketFlow from 'src/processes/market'
 import ItemDetailsScreen from 'src/processes/market/screens/ItemDetailsScreen'
 import Header from 'src/processes/auth/components/Header'
 import CartScreen from 'src/processes/market/screens/CartScreen'
+import StockDetailsScreen from 'src/processes/market/screens/StockDetailsScreen'
 
 const Stack = createStackNavigator<RootStackParamList>()
 
@@ -60,7 +61,7 @@ export default function AppRoot() {
         {(!userOnboarded || !isLoggedIn) && <Stack.Screen name={Route.AuthStack} component={AuthorizationFlow} />}
         <Stack.Screen name={Route.MarketStack} component={MarketFlow} />
         <Stack.Screen options={showHeader} name={Route.ItemDetailsScreen} component={ItemDetailsScreen} />
-        <Stack.Screen options={showHeader} name={Route.StockDetailsScreen} component={ItemDetailsScreen} />
+        <Stack.Screen options={showHeader} name={Route.StockDetailsScreen} component={StockDetailsScreen} />
         <Stack.Screen options={showHeader} name={Route.CartScreen} component={CartScreen} />
       </Stack.Navigator>
     </NavigationContainer>

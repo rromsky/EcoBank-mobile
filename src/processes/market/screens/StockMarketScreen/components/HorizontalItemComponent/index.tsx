@@ -2,13 +2,13 @@ import { FlatList, Text, TouchableOpacity, View } from 'react-native'
 import { StockData } from 'shared/hooks/useStocksData.ts'
 import { theme } from 'theme'
 import { LineDecorator } from 'shared/components'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { LinearGradient } from 'react-native-linear-gradient'
 import { windowWidth } from 'shared/types'
 import { useNavigationTyped } from 'shared/navigation'
 import { Route } from 'src/app/types.ts'
 
-const MockedData = [
+const MockedData: StockData[] = [
   {
     country: null,
     has_eod: true,
@@ -107,33 +107,40 @@ const MockedData = [
   },
 ]
 
-function HorizontalItem({ item }: { item: StockData }) {
+export default function HorizontalItemComponent() {
   const navigation = useNavigationTyped()
 
-  const handleOnPress = () => {
-    navigation.navigate(Route.StockDetailsScreen as never, { item } as never)
-  }
-  return (
-    <TouchableOpacity onPress={handleOnPress}>
-      <LinearGradient
-        colors={[theme.green, theme.gray]}
-        style={{ width: 102, padding: 14, gap: 6, borderRadius: 4, alignItems: 'center' }}
-      >
-        <Text style={{ fontSize: 19, fontFamily: 'Manrope-Bold', color: theme.white }}>{item.symbol}</Text>
-
-        <LineDecorator color={theme.milk} width={64} />
-        <Text
-          numberOfLines={2}
-          adjustsFontSizeToFit
-          style={{ fontSize: 14, fontFamily: 'Manrope', color: theme.white }}
+  const renderItem = useCallback(({ item }: { item: StockData }) => {
+    const handleOnPress = () => {
+      navigation.navigate(Route.StockDetailsScreen as never, { item: item } as never)
+    }
+    return (
+      <TouchableOpacity onPress={handleOnPress}>
+        <LinearGradient
+          colors={[theme.green, theme.gray]}
+          style={{ width: 102, height: 116, padding: 14, gap: 6, borderRadius: 4, alignItems: 'center' }}
         >
-          {item.name}
-        </Text>
-      </LinearGradient>
-    </TouchableOpacity>
-  )
-}
-export default function HorizontalItemComponent() {
+          <Text
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            style={{ fontSize: 19, fontFamily: 'Manrope-Bold', color: theme.white }}
+          >
+            {item.symbol}
+          </Text>
+
+          <LineDecorator color={theme.milk} width={64} />
+          <Text
+            numberOfLines={2}
+            adjustsFontSizeToFit
+            style={{ fontSize: 14, fontFamily: 'Manrope', color: theme.white }}
+          >
+            {item.name}
+          </Text>
+        </LinearGradient>
+      </TouchableOpacity>
+    )
+  }, [])
+
   return (
     <>
       <FlatList
@@ -141,7 +148,7 @@ export default function HorizontalItemComponent() {
         horizontal
         contentContainerStyle={{ padding: 24, gap: 12 }}
         data={MockedData}
-        renderItem={HorizontalItem}
+        renderItem={renderItem}
       />
       <LineDecorator color={theme.milk} width={windowWidth - 32} />
     </>

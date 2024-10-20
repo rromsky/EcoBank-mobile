@@ -9,6 +9,9 @@ import { cartAddItem, useAppDispatch } from 'shared/store'
 import { useNavigationTyped } from 'shared/navigation'
 
 import styles from './styles'
+import { windowWidth } from 'shared/types'
+import { LineChart } from 'react-native-chart-kit'
+import { useStockChartData } from 'shared/hooks/useStocksData.ts'
 
 export const AchiveContainer = ({ label, value }: { label: string; value: string }) => {
   return (
@@ -18,37 +21,80 @@ export const AchiveContainer = ({ label, value }: { label: string; value: string
     </View>
   )
 }
-export default React.memo(() => {
+const ItemDetailsScreen = () => {
   // @ts-ignore
-  const item = useRoute<RootStackParamList[Route.ItemDetailsScreen]>().params.item
-
+  const item = useRoute<RootStackParamList[Route.StockDetailsScreen]>().params.item
+  const itemData = useStockChartData(item.symbol).stocksDetails
   const dispatch = useAppDispatch()
   const navigation = useNavigationTyped()
-
+  console.log(itemData)
   return (
     <SafeAreaView style={styles.root}>
       <ScrollView contentContainerStyle={styles.content}>
         <View style={styles.imageContainer}>
-          <Image source={{ uri: item.photoURL }} style={styles.image} />
-          <View style={styles.rating}>
-            <Stars rate={4} />
-          </View>
+          {itemData && (
+            <LineChart
+              data={{
+                labels: itemData.map((el, i) => {
+                  const numberOfHours = Math.floor(i / 4)
+                  let result = ''
+                  if (!!numberOfHours) {
+                    result += `${numberOfHours}h `
+                  }
+                  result += `${(i % 4) * 15}m`
+                  return result
+                }),
+                datasets: [
+                  {
+                    data: itemData?.map((el) => {
+                      return el.last
+                    }),
+                  },
+                ],
+              }}
+              width={windowWidth} // from react-native
+              height={240}
+              yAxisLabel='$'
+              yAxisSuffix='k'
+              yAxisInterval={1} // optional, defaults to 1
+              chartConfig={{
+                backgroundColor: '#82e39d',
+                backgroundGradientFrom: '#19732d',
+                backgroundGradientTo: '#19b845',
+                decimalPlaces: 2, // optional, defaults to 2dp
+                color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                style: {
+                  borderRadius: 16,
+                },
+                propsForDots: {
+                  r: '6',
+                  strokeWidth: '2',
+                  stroke: '#ffa726',
+                },
+              }}
+              bezier
+              style={{
+                marginVertical: 8,
+              }}
+            />
+          )}
         </View>
         <View>
+          <Text style={styles.title} numberOfLines={5} ellipsizeMode={'tail'}>
+            {item.name}
+          </Text>
           <View style={styles.labelsContainer}>
-            <AchiveContainer label={'Категорія: '} value={'Нумізматика'} />
-            <AchiveContainer label={'Реалізація: '} value={'24.02.2024'} />
+            <AchiveContainer label={'LOW: '} value={`${itemData?.[0].low} $`} />
+            <AchiveContainer label={'HIGH: '} value={`${itemData?.at(-1)?.low} $`} />
           </View>
           <View style={styles.labelsContainer}>
-            <AchiveContainer label={'Художник: '} value={'М.А. Зур'} />
-            <AchiveContainer label={'Ціна: '} value={`${item.price}$`} />
+            <AchiveContainer label={'Open: '} value={`${itemData?.[0].open} $`} />
+            <AchiveContainer label={'CLOSE: '} value={`${itemData?.at(-1)?.close} $`} />
           </View>
         </View>
 
         <View style={styles.contentContainer}>
-          <Text style={styles.smallText} numberOfLines={5} ellipsizeMode={'tail'}>
-            {item.description}
-          </Text>
           <View>
             <GradientButtonFill
               onPress={() => {
@@ -63,4 +109,6 @@ export default React.memo(() => {
       </ScrollView>
     </SafeAreaView>
   )
-})
+}
+
+export default React.memo(ItemDetailsScreen)

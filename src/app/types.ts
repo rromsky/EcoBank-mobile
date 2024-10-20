@@ -1,5 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native'
 import { ItemType } from 'src/processes/market/screens/types.ts'
+import { StockData } from 'shared/hooks/useStocksData.ts'
 
 export enum Route {
   AuthStack = 'AuthStack',
@@ -58,7 +59,7 @@ export type RootStackParamList = {
   }
 
   [Route.StockDetailsScreen]: {
-    stock: any // TODO: define stock type
+    stock: StockData // TODO: define stock type
   }
   [Route.CartScreen]: undefined
 }

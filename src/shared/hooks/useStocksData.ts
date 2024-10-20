@@ -55,7 +55,7 @@ export function useStocksData() {
 
   useEffect(() => {
     ;(async () => {
-      const url = `https://api.marketstack.com/v1/tickers?access_key=5b7d521d3cc6580a41ebdfa1334cf997&limit=${
+      const url = `https://api.marketstack.com/v1/tickers?access_key=54629f1b2b48254a18f69552e2cb3939&limit=${
         10 * page
       }&offset=${10 * (page - 1)}`
       const options = {
@@ -98,7 +98,7 @@ export function useStockDetails(stockName: string) {
 
   useEffect(() => {
     ;(async () => {
-      const url = `https://api.marketstack.com/v1/tickers?access_key=5b7d521d3cc6580a41ebdfa1334cf997&symbol=${stockName}`
+      const url = `https://api.marketstack.com/v1/tickers?access_key=54629f1b2b48254a18f69552e2cb3939&symbol=${stockName}`
       const options = {
         method: 'GET',
       }
@@ -127,7 +127,7 @@ export function useStockChartData(stockName: string) {
 
   useEffect(() => {
     ;(async () => {
-      const url = `https://api.marketstack.com/v1/intraday?access_key=5b7d521d3cc6580a41ebdfa1334cf997&symbols=${stockName}&interval=15min&limit=6`
+      const url = `https://api.marketstack.com/v1/intraday?access_key=54629f1b2b48254a18f69552e2cb3939&symbols=${stockName}&interval=15min&limit=6`
       const options = {
         method: 'GET',
       }

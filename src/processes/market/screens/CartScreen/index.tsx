@@ -60,7 +60,7 @@ const CartScreen = () => {
           return
         }
         Toast.show({ text1: 'Оплата успішна', type: 'success', position: 'bottom' })
-        dispatch(cartClean)
+        dispatch(cartClean())
         goToHome()
       })
       .catch((e: any) => {

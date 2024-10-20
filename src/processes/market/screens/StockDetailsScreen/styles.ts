@@ -11,13 +11,11 @@ export default StyleSheet.create({
     paddingBottom: 120,
     gap: 18,
   },
-  contentContainer: {
-    marginHorizontal: 24,
-  },
+  contentContainer: {},
   imageContainer: {
     position: 'relative',
     alignSelf: 'center',
-    width: windowWidth * 0.9,
+    width: windowWidth,
   },
   rating: {
     position: 'absolute',
@@ -26,6 +24,12 @@ export default StyleSheet.create({
     padding: 1,
     bottom: 20,
     left: 5,
+  },
+  title: {
+    fontSize: 32,
+    fontFamily: 'Manrope-Bold',
+    color: theme.green,
+    alignSelf: 'center',
   },
   labelsContainer: {
     flexDirection: 'row',

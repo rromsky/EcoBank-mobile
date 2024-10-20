@@ -1,9 +1,5 @@
-import { Image, Text, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
+import { Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { useAppDispatch, useAppSelector, User, userUpdateFavouriteList } from 'shared/store'
-import { ItemType } from 'src/processes/market/screens/types.ts'
-import { gatewayUpdateUserFavourite } from 'shared/lib/api'
 import { windowWidth } from 'shared/types'
 import { LineDecorator } from 'shared/components'
 import { useNavigationTyped } from 'shared/navigation'
@@ -19,6 +15,7 @@ const ItemComponent = ({ item, isLoading }: { item: StockData; isLoading: boolea
       style={{ alignItems: 'center', justifyContent: 'center', marginHorizontal: 12 }}
       onPress={() => {
         navigation.navigate(Route.StockDetailsScreen as any, { item })
+        console.log('ADASD', item)
       }}
     >
       <View

@@ -26,6 +26,8 @@ const RecomendedList = () => {
         <Text style={{ fontSize: 12, fontFamily: 'Manrope', color: theme.base40, marginLeft: 24 }}>AI Powered</Text>
       </View>
       <HorizontalItemComponent />
+
+      <Text style={{ fontSize: 22, fontFamily: 'Manrope-Bold', marginLeft: 24, paddingTop: 14 }}>Popular</Text>
     </View>
   )
 }
@@ -44,6 +46,7 @@ const StockMarketScreen = () => {
     return <ListEndLoader isLoading />
   }, [isLoading])
   const { bottom } = useSafeAreaInsets()
+
   return (
     <View style={{ flex: 1, backgroundColor: '#ffffff' }}>
       {isLoading && <LoadingFullScreen />}
@@ -71,9 +74,8 @@ const StockMarketScreen = () => {
         updateCellsBatchingPeriod={100}
       />
       <BottomGradient />
-      <OpenCartButton />
     </View>
   )
+  return <></>
 }
-
 export default React.memo(StockMarketScreen)
